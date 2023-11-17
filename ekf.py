@@ -7,6 +7,7 @@ def sigmoid(x):
 def sigmoid_prime(x):
     return expit(x) * (1 - expit(x))
 
+
 class EKF_NN:
     def __init__(self, n_input, n_hidden, n_output, Q, R):
         # Initialize network parameters
@@ -21,8 +22,8 @@ class EKF_NN:
         if not isinstance(R, np.ndarray) or R.shape != (n_output, n_output):
             raise ValueError("Invalid dimensions for R matrix")
 
-        # Initialize network weights randomly
-        self.init_weights()
+        # Initialize network weights randomly using a normal distribution
+        self.w = np.random.normal(0, 0.01, self.n_weights)
 
         # Initialize error covariance matrix
         self.P = np.eye(self.n_weights) * 1e-3 # Identity matrix with a small diagonal value
