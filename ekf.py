@@ -18,6 +18,8 @@ class EKF_NN:
         if not isinstance(Q, np.ndarray) or Q.shape != (self.n_weights, self.n_weights):
             raise ValueError("Invalid dimensions for Q matrix")
         self.R = R # Measurement noise covariance matrix (n_output x n_output)
+        if not isinstance(R, np.ndarray) or R.shape != (n_output, n_output):
+            raise ValueError("Invalid dimensions for R matrix")
 
         # Initialize network weights randomly
         self.init_weights()
