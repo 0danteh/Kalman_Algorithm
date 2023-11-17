@@ -10,7 +10,6 @@ def sigmoid_prime(x):
 
 class EKF_NN:
     def __init__(self, n_input, n_hidden, n_output, Q, R):
-
         # Initialize network parameters
         self.n_input = n_input # Number of input nodes
         self.n_hidden = n_hidden # Number of hidden nodes
@@ -19,6 +18,11 @@ class EKF_NN:
         self.Q = Q # Process noise covariance matrix (n_weights x n_weights)
         if not isinstance(Q, np.ndarray) or Q.shape != (self.n_weights, self.n_weights):
             raise ValueError("Invalid dimensions for Q matrix")
+        # Calculate the inverse of the process noise covariance matrix Q
+        try:
+            self.prior_cov = np.linalg.inv(Q)
+        except np.linalg.LinAlgError:
+            raise ValueError("Q matrix is not invertible")
         self.R = R # Measurement noise covariance matrix (n_output x n_output)
         if not isinstance(R, np.ndarray) or R.shape != (n_output, n_output):
             raise ValueError("Invalid dimensions for R matrix")
