@@ -5,5 +5,5 @@ def sigmoid(x):
     return expit(x)
 
 def sigmoid_prime(x):
-    return sigmoid(x) * (1 - sigmoid(x))
+    return expit(x) * (1 - expit(x))
 
