@@ -20,34 +20,33 @@ class EKF_NN:
 
     def predict(self, x):
         # Predict the output of the network given an input vector
-        x = np.append(x, 1) # Add bias term to input vector (n_input + 1 x 1)
-        z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer (n_hidden x 1)
-        h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function (n_hidden x 1)
-        h = np.append(h, 1) # Add bias term to hidden layer output (n_hidden + 1 x 1)
-        y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer (n_output x 1)
-        y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function (n_output x 1)
+        x = np.append(x, 1) # Add bias term to input vector
+        z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer
+        h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function
+        h = np.append(h, 1) # Add bias term to hidden layer output
+        y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer
+        y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function
         return y
         
     def jacobian(self, x):
         # Compute the Jacobian matrix of the network output with respect to the weights
-        x = np.append(x, 1) # Add bias term to input vector (n_input + 1 x 1)
-        z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer (n_hidden x 1)
-        h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function (n_hidden x 1)
-        h = np.append(h, 1) # Add bias term to hidden layer output (n_hidden + 1 x 1)
-        y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer (n_output x 1)
-        y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function (n_output x 1  
+        x = np.append(x, 1) # Add bias term to input vector
+        z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer
+        h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function
+        y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer
+        y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function
         # Compute the partial derivatives of the output layer output with respect to the weights
-        dy_dw = np.zeros((self.n_output, self.n_weights)) # Partial derivatives matrix (n_output x n_weights)
+        dy_dw = np.zeros((self.n_output, self.n_weights)) # Partial derivatives matrix
         for i in range(self.n_output):
             for j in range(self.n_hidden + 1):
-                dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + j] = y[i] * (1 - y[i]) * h[j] # dy_i / dw_    
+                dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + j] = y[i] * (1 - y[i]) * h[j] 
         # Compute the partial derivatives of the hidden layer output with respect to the weights
-        dh_dw = np.zeros((self.n_hidden, self.n_weights)) # Partial derivatives matrix (n_hidden x n_weights)
+        dh_dw = np.zeros((self.n_hidden, self.n_weights)) # Partial derivatives matrix
         for i in range(self.n_hidden):
             for j in range(self.n_input + 1):
-                dh_dw[i, i * (self.n_input + 1) + j] = h[i] * (1 - h[i]) * x[j] # dh_i / dw_    
+                dh_dw[i, i * (self.n_input + 1) + j] = h[i] * (1 - h[i]) * x[j]
         # Compute the Jacobian matrix using the chain rule
-        H = np.zeros((self.n_output, self.n_weights)) # Jacobian matrix (n_output x n_weights)
+        H = np.zeros((self.n_output, self.n_weights)) # Jacobian matrix
         for i in range(self.n_output):
             for j in range(self.n_weights):
                 for k in range(self.n_hidden):
@@ -59,14 +58,14 @@ class EKF_NN:
         y_pred = self.predict(x) # Predict the output of the network given the input vector
         H = self.jacobian(x) # Compute the Jacobian matrix of the network output with respect to the weights
         # Compute the innovation, innovation covariance, and Kalman gain matrices
-        nu = y - y_pred # Innovation vector (n_output x 1)
-        Q = np.dot(np.dot(H, self.P), H.T) + self.R # Innovation covariance matrix (n_output x n_output)
+        nu = y - y_pred # Innovation vector
+        Q = np.dot(np.dot(H, self.P), H.T) + self.R # Innovation covariance matrix
         try:
             S_inv = np.linalg.inv(Q) # Inverse of the innovation covariance matrix
         except np.linalg.LinAlgError:
             raise ValueError("S matrix is not invertible")
-        K = np.dot(np.dot(self.P, H.T), S_inv) # Kalman gain matrix (n_weights x n_output)
+        K = np.dot(np.dot(self.P, H.T), S_inv) # Kalman gain matrix
         # Update the network weights and the error covariance matrix
-        self.w = self.w + np.dot(K, nu) # Weight update vector (n_weights x 1)
-        I = np.eye(self.n_weights) # Identity matrix (n_weights x n_weights)
-        self.P = np.dot(np.dot(I - np.dot(K, H), self.P), (I - np.dot(K, H)).T) + np.dot(np.dot(K, self.R), K.T) # Error covariance update matrix (n_weights x n_weights)
+        self.w = self.w + np.dot(K, nu) # Weight update vector
+        I = np.eye(self.n_weights) # Identity matrix
+        self.P = np.dot(np.dot(I - np.dot(K, H), self.P), (I - np.dot(K, H)).T) + np.dot(np.dot(K, self.R), K.T) # Error covariance update matrix
