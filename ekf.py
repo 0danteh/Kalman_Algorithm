@@ -68,9 +68,9 @@ class EKF_NN:
             H = self.jacobian(x) # Compute the Jacobian matrix of the network output with respect to the weights
             # Compute the innovation, innovation covariance, and Kalman gain matrices
             nu = y - y_pred # Innovation vector (n_output x 1)
-            S = np.dot(np.dot(H, self.P), H.T) + self.R # Innovation covariance matrix (n_output x n_output)
+            Q = np.dot(np.dot(H, self.P), H.T) + self.R # Innovation covariance matrix (n_output x n_output)
             try:
-                S_inv = np.linalg.inv(S) # Inverse of the innovation covariance matrix
+                S_inv = np.linalg.inv(Q) # Inverse of the innovation covariance matrix
             except np.linalg.LinAlgError:
                 raise ValueError("S matrix is not invertible")
             K = np.dot(np.dot(self.P, H.T), S_inv) # Kalman gain matrix (n_weights x n_output)
