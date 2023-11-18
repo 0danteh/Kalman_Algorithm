@@ -30,3 +30,13 @@ class EKF_NN:
         self.w = np.random.normal(0, 0.01, self.n_weights)
         # Initialize error covariance matrix
         self.P = np.eye(self.n_weights) * 1e-3 # Identity matrix with a small diagonal value
+
+        def output(self, x):
+            # Compute the output of the network given an input vector
+            x = np.append(x, 1) # Add bias term to input vector (n_input + 1 x 1)
+            z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer (n_hidden x 1)
+            h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function (n_hidden x 1)
+            h = np.append(h, 1) # Add bias term to hidden layer output (n_hidden + 1 x 1)
+            y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer (n_output x 1)
+            y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function (n_output x 1)
+            return y
