@@ -40,3 +40,29 @@ class EKF_NN:
             y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer (n_output x 1)
             y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function (n_output x 1)
             return y
+        
+        def jacobian(self, x):
+            # Compute the Jacobian matrix of the network output with respect to the weights
+            x = np.append(x, 1) # Add bias term to input vector (n_input + 1 x 1)
+            z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer (n_hidden x 1)
+            h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function (n_hidden x 1)
+            h = np.append(h, 1) # Add bias term to hidden layer output (n_hidden + 1 x 1)
+            y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer (n_output x 1)
+            y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function (n_output x 1  
+            # Compute the partial derivatives of the output layer output with respect to the weights
+            dy_dw = np.zeros((self.n_output, self.n_weights)) # Partial derivatives matrix (n_output x n_weights)
+            for i in range(self.n_output):
+                for j in range(self.n_hidden + 1):
+                    dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + j] = y[i] * (1 - y[i]) * h[j] # dy_i / dw_    
+            # Compute the partial derivatives of the hidden layer output with respect to the weights
+            dh_dw = np.zeros((self.n_hidden, self.n_weights)) # Partial derivatives matrix (n_hidden x n_weights)
+            for i in range(self.n_hidden):
+                for j in range(self.n_input + 1):
+                    dh_dw[i, i * (self.n_input + 1) + j] = h[i] * (1 - h[i]) * x[j] # dh_i / dw_    
+            # Compute the Jacobian matrix using the chain rule
+            H = np.zeros((self.n_output, self.n_weights)) # Jacobian matrix (n_output x n_weights)
+            for i in range(self.n_output):
+                for j in range(self.n_weights):
+                    for k in range(self.n_hidden):
+                        H[i, j] += dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + k] * dh_dw[k, j] # H_ij = dy_i / dw_j + sum_k (dy_i / dw_k) * (dh_k / dw_j 
+            return H
