@@ -72,8 +72,6 @@ class EKF_NN:
 
     def rmse(self, X, D):
         # Compute the root mean squared error between the predicted output and the actual output
-        # X: input
-        # D: output
         n_samples = X.shape[0] # Number of samples
         error = 0 # Initialize error
         for i in range(n_samples):
@@ -87,8 +85,6 @@ class EKF_NN:
 
     def train(self, X, Y, epochs=10):
         # Train the network using the EKF algorithm based on the input and output matrices
-        # X: input
-        # Y: output
         # epochs: number of epochs (set as 10)
         n_samples = X.shape[0] # Number of samples
         for epoch in range(epochs):
