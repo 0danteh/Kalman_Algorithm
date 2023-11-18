@@ -85,7 +85,7 @@ class EKF_NN:
 
     def train(self, X, Y, epochs):
         # Train the network using the EKF algorithm based on the input and output matrices
-        # epochs: number of epochs (set as 10)
+        # epochs: number of epochs (set on your own)
         n_samples = X.shape[0] # Number of samples
         for epoch in range(epochs):
             # Loop over the samples
