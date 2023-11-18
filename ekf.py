@@ -51,7 +51,7 @@ class EKF_NN:
             for j in range(self.n_weights):
                 for k in range(self.n_hidden):
                     H[i, j] += dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + k] * dh_dw[k, j] # H_ij = dy_i / dw_j + sum_k (dy_i / dw_k) * (dh_k / dw_j 
-            return H
+        return H
         
     def update(self, x, y):
         # Update the network weights and the error covariance matrix based on the input and output vectors
