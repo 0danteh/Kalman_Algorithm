@@ -83,7 +83,7 @@ class EKF_NN:
         error = np.sqrt(error) # Root mean squared error
         return error
 
-    def train(self, X, Y, epochs=10):
+    def train(self, X, Y, epochs):
         # Train the network using the EKF algorithm based on the input and output matrices
         # epochs: number of epochs (set as 10)
         n_samples = X.shape[0] # Number of samples
