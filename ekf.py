@@ -7,10 +7,10 @@ class EKF_NN:
         self.n_hidden = n_hidden # Number of hidden nodes
         self.n_output = n_output # Number of output nodes
         self.n_weights = (n_input + 1) * n_hidden + (n_hidden + 1) * n_output # Total number of weights
-        self.Q = Q # Process noise covariance matrix (n_weights x n_weights)
+        self.Q = Q # Process noise covariance matrix
         if not isinstance(Q, np.ndarray) or Q.shape != (self.n_weights, self.n_weights):
             raise ValueError("Invalid dimensions for Q matrix")
-        self.R = R # Measurement noise covariance matrix (n_output x n_output)
+        self.R = R # Measurement noise covariance matrix
         if not isinstance(R, np.ndarray) or R.shape != (n_output, n_output):
             raise ValueError("Invalid dimensions for R matrix")
         # Initialize network weights randomly using a normal distribution
