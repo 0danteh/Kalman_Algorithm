@@ -32,3 +32,4 @@ y_pred = ekf_nn.predict(X)
 
 # Calculate RMSE
 rmse = np.sqrt(mean_squared_error(y, y_pred))
+print("Root Mean Squared Error (RMSE):", rmse)
