@@ -22,3 +22,13 @@ plt.xlabel("Feature 1")
 plt.ylabel("Feature 2")
 plt.title("Random Noisy Synthetic Dataset")
 plt.show()
+
+# Create an instance of the EKF_NN class
+ekf_nn = EKF_NN(
+    n_input=2, # Number of input nodes
+    n_hidden=10, # Number of hidden nodes
+    n_output=1, # Number of output nodes
+    # Create the Q and R matrices by multiplying the scalar values by identity matrices of the appropriate sizes
+    Q = 0.01*np.eye(71),
+    R = 0.1*np.eye(1),
+) 
