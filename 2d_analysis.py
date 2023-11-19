@@ -26,3 +26,6 @@ ekf_nn = EKF_NN(
 
 # Train the EKF_NN on the data
 ekf_nn.train(X, y, epochs=10)
+
+# Obtain predictions on the training data
+y_pred = ekf_nn.predict(X)
