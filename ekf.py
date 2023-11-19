@@ -53,6 +53,17 @@ class EKF_NN:
                     H[i, j] += dy_dw[i, self.n_input + 1 + i * (self.n_hidden + 1) + k] * dh_dw[k, j] # H_ij = dy_i / dw_j + sum_k (dy_i / dw_k) * (dh_k / dw_j 
         return H
         
+    def predict(self, x):
+        # Compute the network output y using the observation function h
+        y = self.h(self.w, x)
+        # Compute the Jacobian matrix F using the state transition function f
+        F = self.f(self.w)
+        # Update the network weights w using the state transition function f
+        self.w = F @ self.w
+        # Update the error covariance matrix P using the Jacobian matrix F and the process noise covariance matrix Q
+        self.P = F @ self.P @ F.T + self.Q
+        # Return the network output y and the Jacobian matrix F
+        return y, F
     def update(self, x, y):
         # Update the network weights and the error covariance matrix based on the input and output vectors
         y_pred = self.predict(x) # Predict the output of the network given the input vector
