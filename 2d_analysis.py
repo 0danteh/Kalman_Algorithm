@@ -1,6 +1,7 @@
 from sklearn.datasets import make_classification
 import matplotlib.pyplot as plt
 import numpy as np
+from ekf import EKF_NN
 
 # Generate a random noisy synthetic dataset
 X, y = make_classification(
