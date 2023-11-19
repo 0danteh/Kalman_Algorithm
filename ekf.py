@@ -92,20 +92,20 @@ class EKF_NN:
         error = np.sqrt(error) # Root mean squared error
         return error
 
-  def train(self, X, Y, epochs, lr):
-    # Loop over the epochs
-    for epoch in range(epochs):
-        # Shuffle the training data
-        perm = np.random.permutation(X.shape[0])
-        X = X[perm]
-        Y = Y[perm]
-        # Loop over the samples
-        for x, y in zip(X, Y):
-            # Predict the network output and the Jacobian matrix F
-            y_pred, F = self.predict(x)
-            # Calculate the error
-            error = y - y_pred
-            # Update the network weights and the error covariance matrix
-            self.update(error, F, lr)
-    # Return the final network weights and the error covariance matrix
-    return self.w, self.P
+    def train(self, X, Y, epochs, lr):
+        # Loop over the epochs
+        for epoch in range(epochs):
+            # Shuffle the training data
+            perm = np.random.permutation(X.shape[0])
+            X = X[perm]
+            Y = Y[perm]
+            # Loop over the samples
+            for x, y in zip(X, Y):
+                # Predict the network output and the Jacobian matrix F
+                y_pred, F = self.predict(x)
+                # Calculate the error
+                error = y - y_pred
+                # Update the network weights and the error covariance matrix
+                self.update(error, F, lr)
+        # Return the final network weights and the error covariance matrix
+        return self.w, self.P
