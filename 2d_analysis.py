@@ -1,6 +1,6 @@
 from sklearn.datasets import make_classification
-import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
 import numpy as np
 from ekf import EKF_NN
 
