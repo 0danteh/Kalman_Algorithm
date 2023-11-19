@@ -29,3 +29,6 @@ ekf_nn.train(X, y, epochs=10)
 
 # Obtain predictions on the training data
 y_pred = ekf_nn.predict(X)
+
+# Calculate RMSE
+rmse = np.sqrt(mean_squared_error(y, y_pred))
