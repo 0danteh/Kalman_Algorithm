@@ -1,4 +1,5 @@
 from sklearn.datasets import make_classification
+import matplotlib.pyplot as plt
 import numpy as np
 
 # Generate a random noisy synthetic dataset
@@ -10,3 +11,4 @@ X, y = make_classification(
     flip_y=0.15, # Noise level
     random_state=42
 )
+
