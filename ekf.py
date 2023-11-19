@@ -17,7 +17,6 @@ class EKF_NN:
     def h(self, w, x):
         # Add bias term to input vector
         x = np.append(x, 1)
-        print("reshaped w[:self.n_input + 1] shape:", w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden).shape)
         # Compute the hidden layer output
         z = np.dot(x, w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden))
         h = 1 / (1 + np.exp(-z))
