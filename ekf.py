@@ -64,6 +64,7 @@ class EKF_NN:
         self.P = F @ self.P @ F.T + self.Q
         # Return the network output y and the Jacobian matrix F
         return y, F
+    
     def update(self, x, y):
         # Update the network weights and the error covariance matrix based on the input and output vectors
         y_pred = self.predict(x) # Predict the output of the network given the input vector
