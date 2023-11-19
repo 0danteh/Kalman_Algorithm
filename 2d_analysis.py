@@ -12,3 +12,5 @@ X, y = make_classification(
     random_state=42
 )
 
+# Convert the data to a numpy array (reference)
+data = np.concatenate((X, y.reshape(-1, 1)), axis=1)
