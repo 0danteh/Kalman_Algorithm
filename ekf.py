@@ -65,19 +65,19 @@ class EKF_NN:
         # Return the network output y and the Jacobian matrix F
         return y, F
     
-  def update(self, y_meas):
-      # Compute the network output y_pred using the observation function h
-      y_pred = self.h(self.w, self.x)
-      # Compute the Jacobian matrix H using the partial derivative of h with respect to the network weights w
-      H = self.jacobian(self.w, self.x)
-      # Compute the innovation and innovation covariance
-      residual = y_meas - y_pred
-      S = H @ self.P @ H.T + self.R
-      # Compute the Kalman gain
-      K = self.P @ H.T @ np.linalg.inv(S)
-      # Update the network weights w and the error covariance matrix P using the Kalman gain and the innovation
-      self.w = self.w + K @ residual
-      self.P = (np.eye(self.n_weights) - K @ H) @ self.P  
+    def update(self, y_meas):
+        # Compute the network output y_pred using the observation function h
+        y_pred = self.h(self.w, self.x)
+        # Compute the Jacobian matrix H using the partial derivative of h with respect to the network weights w
+        H = self.jacobian(self.w, self.x)
+        # Compute the innovation and innovation covariance
+        residual = y_meas - y_pred
+        S = H @ self.P @ H.T + self.R
+        # Compute the Kalman gain
+        K = self.P @ H.T @ np.linalg.inv(S)
+        # Update the network weights w and the error covariance matrix P using the Kalman gain and the innovation
+        self.w = self.w + K @ residual
+        self.P = (np.eye(self.n_weights) - K @ H) @ self.P  
 
     def rmse(self, X, D):
         # Compute the root mean squared error between the predicted output and the actual output
