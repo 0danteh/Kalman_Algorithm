@@ -1,6 +1,7 @@
 import numpy as np
 
 class EKF_NN:
+    
     def __init__(self, n_input, n_hidden, n_output, Q, R):
         # Initialize network parameters
         self.n_input = n_input # Number of input nodes
