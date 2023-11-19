@@ -14,3 +14,10 @@ X, y = make_classification(
 
 # Convert the data to a numpy array (reference)
 data = np.concatenate((X, y.reshape(-1, 1)), axis=1)
+
+# Plot the data
+plt.scatter(data[:, 0], data[:, 1], c=data[:, 2])
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.title("Random Noisy Synthetic Dataset")
+plt.show()
