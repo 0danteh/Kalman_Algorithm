@@ -32,3 +32,6 @@ ekf_nn = EKF_NN(
     Q = 0.01*np.eye(71),
     R = 0.1*np.eye(1),
 ) 
+
+# Train the EKF_NN on the data
+ekf_nn.train(X, y, epochs=10)
