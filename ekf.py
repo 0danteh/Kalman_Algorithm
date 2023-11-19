@@ -14,15 +14,22 @@ class EKF_NN:
         # Initialize error covariance matrix
         self.P = np.eye(self.n_weights) * 1e-3 # Identity matrix with a small diagonal value
 
-    def predict(self, x):
-        # Predict the output of the network given an input vector
-        x = np.append(x, 1) # Add bias term to input vector
-        z = np.dot(x, self.w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden)) # Input to hidden layer
-        h = 1 / (1 + np.exp(-z)) # Hidden layer output using sigmoid activation function
-        h = np.append(h, 1) # Add bias term to hidden layer output
-        y = np.dot(h, self.w[self.n_input + 1:].reshape(self.n_hidden + 1, self.n_output)) # Input to output layer
-        y = 1 / (1 + np.exp(-y)) # Output layer output using sigmoid activation function
-        return y
+    def h(self, w, x):
+        # Add bias term to input vector
+        x = np.append(x, 1)
+        print("x shape:", x.shape)
+        print("w[:self.n_input + 1] shape:", w[:self.n_input + 1].shape)
+        print("reshaped w[:self.n_input + 1] shape:", w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden).shape)
+        # Compute the hidden layer output
+        z = np.dot(x, w[:self.n_input + 1].reshape(self.n_input + 1, self.n_hidden))
+        h = 1 / (1 + np.exp(-z))
+        # Add bias term to hidden layer output
+        h = np.append(h, 1)
+        # Compute the output layer output
+        y = np.dot(h, w[self.n_input + 1:].reshape(self.n_hidden + 1, -1))
+        y = 1 / (1 + np.exp(-y))
+        # Return the output layer output
+        return y  
         
     def jacobian(self, x):
         # Compute the Jacobian matrix of the network output with respect to the weights
