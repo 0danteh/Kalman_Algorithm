@@ -65,22 +65,19 @@ class EKF_NN:
         # Return the network output y and the Jacobian matrix F
         return y, F
     
-    def update(self, x, y):
-        # Update the network weights and the error covariance matrix based on the input and output vectors
-        y_pred = self.predict(x) # Predict the output of the network given the input vector
-        H = self.jacobian(x) # Compute the Jacobian matrix of the network output with respect to the weights
-        # Compute the innovation, innovation covariance, and Kalman gain matrices
-        nu = y - y_pred # Innovation vector
-        S = np.dot(np.dot(H, self.P), H.T) + self.R # Innovation covariance matrix
-        try:
-            S_inv = np.linalg.inv(S) # Inverse of the innovation covariance matrix
-        except np.linalg.LinAlgError:
-            raise ValueError("S matrix is not invertible")
-        K = np.dot(np.dot(self.P, H.T), S_inv) # Kalman gain matrix
-        # Update the network weights and the error covariance matrix
-        self.w = self.w + np.dot(K, nu) # Weight update vector
-        I = np.eye(self.n_weights) # Identity matrix
-        self.P = np.dot(np.dot(I - np.dot(K, H), self.P), (I - np.dot(K, H)).T) + np.dot(np.dot(K, self.R), K.T) # Error covariance update matrix
+  def update(self, y_meas):
+      # Compute the network output y_pred using the observation function h
+      y_pred = self.h(self.w, self.x)
+      # Compute the Jacobian matrix H using the partial derivative of h with respect to the network weights w
+      H = self.jacobian(self.w, self.x)
+      # Compute the innovation and innovation covariance
+      residual = y_meas - y_pred
+      S = H @ self.P @ H.T + self.R
+      # Compute the Kalman gain
+      K = self.P @ H.T @ np.linalg.inv(S)
+      # Update the network weights w and the error covariance matrix P using the Kalman gain and the innovation
+      self.w = self.w + K @ residual
+      self.P = (np.eye(self.n_weights) - K @ H) @ self.P  
 
     def rmse(self, X, D):
         # Compute the root mean squared error between the predicted output and the actual output
