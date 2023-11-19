@@ -92,16 +92,20 @@ class EKF_NN:
         error = np.sqrt(error) # Root mean squared error
         return error
 
-    def train(self, X, Y, epochs):
-        # Train the network using the EKF algorithm based on the input and output matrices
-        # epochs: number of epochs (set on your own)
-        n_samples = X.shape[0] # Number of samples
-        for epoch in range(epochs):
-            # Loop over the samples
-            for i in range(n_samples):
-                x = X[i, :] # Input vector for sample i
-                y = Y[i] # Output vector for sample i
-                self.update(x, y) # Update the network weights and the error covariance matrix based on the input and output vectors
-            # Print the RMSE after each epoch
-            error = self.rmse(X, Y) # Compute the RMSE between the predicted output and the actual output
-        print(f"Epoch {epoch + 1}: RMSE = {error:.4f}") # Print the RMSE with four decimal places
+  def train(self, X, Y, epochs, lr):
+    # Loop over the epochs
+    for epoch in range(epochs):
+        # Shuffle the training data
+        perm = np.random.permutation(X.shape[0])
+        X = X[perm]
+        Y = Y[perm]
+        # Loop over the samples
+        for x, y in zip(X, Y):
+            # Predict the network output and the Jacobian matrix F
+            y_pred, F = self.predict(x)
+            # Calculate the error
+            error = y - y_pred
+            # Update the network weights and the error covariance matrix
+            self.update(error, F, lr)
+    # Return the final network weights and the error covariance matrix
+    return self.w, self.P
