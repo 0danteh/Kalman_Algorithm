@@ -7,7 +7,6 @@ class EKF:
         self.n_input = int(n_input)
         self.n_output = int(n_output)
         self.n_hidden = int(n_hidden)
-
         # Neuron type
         self.neuron = neuron
         if neuron == 'logistic':
@@ -21,7 +20,7 @@ class EKF:
             self.dsig = lambda sigV: np.where(sigV > 0, 1, 0)
         else:
             raise ValueError("The neuron argument must be 'logistic', 'tanh', or 'relu'.")
-        
+    
         # Function for pushing signals through a synapse with bias
         self._affine_dot = lambda W, V: W[:, -1] + np.dot(W[:, :-1], np.atleast_1d(V).T)
         # Function for computing the RMS error of the current fit to some data set
