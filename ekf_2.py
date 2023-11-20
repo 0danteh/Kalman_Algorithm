@@ -25,3 +25,12 @@ class EKF:
         # Function for computing the RMS error of the current fit to some data set
         self.compute_rms = lambda U, Y: np.sqrt(np.mean(np.square(self.feedforward(U) - Y)))
     
+    def update(self, X, return_l=False):
+        X = np.float64(X)
+        if X.ndim == 1 and len(X) > self.n_input:
+            X = X[:, np.newaxis]
+        l = self.sig(self._affine_dot(self.W[0], X))
+        y = self._affine_dot(self.W[1], l)
+        if return_l:
+            return y, l
+        return y
