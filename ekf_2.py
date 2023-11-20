@@ -1,4 +1,7 @@
 import numpy as np
+from time import time
+from scipy.linalg import block_diag
+
 
 class EKF:
     def __init__(self, n_input, n_output, n_hidden, neuron, sprW=5):
@@ -20,6 +23,12 @@ class EKF:
             self.dsig = lambda sigV: np.where(sigV > 0, 1, 0)
         else:
             raise ValueError("The neuron argument must be 'logistic', 'tanh', or 'relu'.")
+        # Initial synapse weight matrices
+        sprW = np.float64(sprW)
+        self.W = [sprW*(2*np.random.sample((n_hidden, n_input+1))-1),
+                  sprW*(2*np.random.sample((n_output, n_hidden+1))-1)]
+        self.nW = sum(map(np.size, self.W))
+        self.P = None
         # Function for pushing signals through a synapse with bias
         self._affine_dot = lambda W, V: W[:, -1] + np.dot(W[:, :-1], np.atleast_1d(V).T)
         # Function for computing the RMS error of the current fit to some data set
@@ -64,3 +73,10 @@ class EKF:
         delta = np.multiply(np.matmul(error, self.W[1][:, :-1]), self.dsig(l)).flatten()
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
+    
+    def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, pulse_T=-1):
+        npl = np.linalg
+        train_input=np.float64(train_input)
+        train_output=np.float64(train_output)
+        input_dim = train_input.ndim
+        output_dim = train_output.ndim
