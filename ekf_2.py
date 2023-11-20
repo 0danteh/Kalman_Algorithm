@@ -34,3 +34,6 @@ class EKF:
         if return_l:
             return y, l
         return y
+    # Assigning labels
+    def assign(self, train_input, hbound, lbound=0):
+        return np.int64(np.minimum(np.maximum(self.update(train_input, 0), lbound, hbound)))
