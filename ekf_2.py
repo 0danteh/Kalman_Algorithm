@@ -23,7 +23,7 @@ class EKF:
         # Function for pushing signals through a synapse with bias
         self._affine_dot = lambda W, V: W[:, -1] + np.dot(W[:, :-1], np.atleast_1d(V).T)
         # Function for computing the RMS error of the current fit to some data set
-        self.compute_rms = lambda U, Y: np.sqrt(np.mean(np.square(self.feedforward(U) - Y)))
+        self.compute_rms = lambda train_input, train_output: np.sqrt(np.mean(np.square(self.feedforward(train_input) - train_output)))
     
     def update(self, X, return_l=False):
         X = np.float64(X)
