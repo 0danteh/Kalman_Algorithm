@@ -37,3 +37,20 @@ class EKF:
     # Assigning labels
     def assign(self, train_input, hbound, lbound=0):
         return np.int64(np.minimum(np.maximum(self.update(train_input, 0), lbound, hbound)))
+    # Calculate the EKF
+    def ekf(self, train_input, train_output, h, l, step):
+        # Compute NN Jacobian
+        jacobian_D = np.multiply(self.W[1][:, :-1], self.dsig(l)).ravel()
+        jacobian_H = np.hstack((np.hstack((np.kron(jacobian_D, train_input), jacobian_D[:, np.newaxis])).reshape(self.n_output, self.W[0].size),
+                                np.repeat(np.concatenate((l, [1])), self.n_output).reshape(self.n_output, self.n_hidden+1)))
+        # Calculate Kalman gain
+        S = np.dot(jacobian_H, np.dot(self.P, jacobian_H.T)) + self.R
+        K = np.dot(np.dot(self.P, jacobian_H.T), np.linalg.inv(S))
+        # Update weight estimates and covariance
+        update_dW = step * np.dot(K, train_output - h)
+        self.W[0] += update_dW[:self.W[0].size].reshape(self.W[0].shape)
+        self.W[1] += update_dW[self.W[0].size:].reshape(self.W[1].shape)
+        self.P -= np.dot(K, np.dot(jacobian_H, self.P))
+        # Adjust covariance if Q is nonzero
+        if self.Q_nonzero:
+            self.P += self.Q
