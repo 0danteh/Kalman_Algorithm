@@ -76,3 +76,4 @@ class EKF:
     def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
         train_input = np.float64(train_input)
         train_output = np.float64(train_output)
+        if method == 'ekf':
