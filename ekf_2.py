@@ -88,3 +88,4 @@ class EKF:
             raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
         last_drwdwn = 0
         cov = []
+        for epoch in range(epochs):
