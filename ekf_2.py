@@ -45,15 +45,15 @@ class EKF:
     def assign(self,X,hbound,lbound=0):
         return np.int64(np.minimum(np.maximum(self.update(X, 0),lbound,hbound)))
     
-    def ekf_alt(self, X, Y, h, l, step):
+    def ekf_alt(self, x, y, h, l, step):
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
-        jacobian_H = np.block([[np.kron(jacobian_D, X),jacobian_D],[l, 1]]).T
+        jacobian_H = np.block([[np.kron(jacobian_D, x),jacobian_D],[l, 1]]).T
         # Calculate Kalman gain using matrix inversion lemma
         S_inv = np.linalg.inv(self.R) - np.linalg.inv(self.R + jacobian_H @ self.P @ jacobian_H.T) @ jacobian_H @ self.P
         K = self.P @ jacobian_H.T @ S_inv
         # Update weight estimates and covariance using matrix subtraction
-        update_dW = step*K @ (Y - h)
+        update_dW = step*K @ (y - h)
         self.W[0] = update_dW[:self.W[0].size].reshape(self.W[0].shape)
         self.W[1] = update_dW[self.W[0].size:].reshape(self.W[1].shape)
         self.P = K @ jacobian_H @ self.P
@@ -61,15 +61,15 @@ class EKF:
         if self.Q_nonzero:
             self.P += self.Q
 
-    def sgd_alt(self, train_input, train_output, h, l, step):
+    def sgd_alt(self, x, y, h, l, step):
         # compute the error between the hidden layer output and the target output
-        error = np.subtract(h, train_output)
+        error = np.subtract(h, y)
         # update the weights of the second layer by subtracting the product of the error, the learning rate, and the hidden layer output with a bias term
         self.W[1] = np.subtract(self.W[1], np.multiply(step, np.hstack((np.matmul(error, l.T), error[:, np.newaxis]))))
         # compute the delta term for the first layer by multiplying the error, the weights of the second layer without the bias term, and the derivative of the sigmoid function applied to the hidden layer output
         delta = np.multiply(np.matmul(error, self.W[1][:, :-1]), self.dsig(l)).flatten()
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
-        self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
+        self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], x.T), delta[:, np.newaxis]))))
     
     def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
         # Convert train_input and train_output to float64
