@@ -96,3 +96,4 @@ class EKF:
             for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
                 h, l = self.update(train_input, get_l=True)
                 self.update(train_input, train_output, h, l, step)
+                if method == 'ekf': cov.append(np.trace(self.P))
