@@ -97,3 +97,4 @@ class EKF:
                 h, l = self.update(train_input, get_l=True)
                 self.update(train_input, train_output, h, l, step)
                 if method == 'ekf': cov.append(np.trace(self.P))
+                if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(train_input) - 1):
