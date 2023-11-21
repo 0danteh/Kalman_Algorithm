@@ -87,7 +87,18 @@ class EKF:
                     raise ValueError("X must have one input var")
             else:
                 if X.shape[-1] != self.n_input:
-                    raise ValueError(f"X must have {self.n_input} input vars")            
+                    raise ValueError(f"X must have {self.n_input} input vars")
+            # Check the shape of Y
+            if Y_dim == 1:
+                if self.n_output != 1:
+                    raise ValueError("Y must have one input var") 
+            # If y has more data points, reshape it as a column vector
+            if m>self.n_output:
+                Y = Y[:, np.newaxis]  
+            else:     
+                # If Y is multi-dimensional, check if it has the correct number of output variables
+                if Y.shape[-1] != self.n_output:
+                    raise ValueError(f"Y must have {self.n_output} vars!")
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
