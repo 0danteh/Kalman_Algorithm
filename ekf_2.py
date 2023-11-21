@@ -93,3 +93,4 @@ class EKF:
             train_output_shuffl=[train_output[i] for i in np.random.permutation(len(train_output))]
             y_true_all = []
             y_pred_all = []
+            for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
