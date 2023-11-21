@@ -104,7 +104,7 @@ class EKF:
             # Iterate through shuffled data
             for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
                 h, l = self.update(train_input, return_l=True)  # Update and get values
-                self.update(train_input, train_output, h, l, step)  # Update parameters
+                self.feed(train_input, train_output, h, l, step)  # Update parameters
                 # If EKF method, append the trace of covariance matrix to the list
                 if method == 'ekf':
                     cov.append(np.trace(self.P))
