@@ -84,3 +84,5 @@ class EKF:
             self.R = R * np.eye(self.n_output, dtype=np.float64) if np.isscalar(R) else np.float64(R)
         elif method == 'sgd':
             self.feed = self.sgd_alt
+        else:
+            raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
