@@ -1,5 +1,6 @@
 import numpy as np
 from time import time
+from sklearn.metrics import mean_squared_error
 
 class EKF:
     def __init__(self, n_input, n_output, n_hidden, neuron, sprW=5):
