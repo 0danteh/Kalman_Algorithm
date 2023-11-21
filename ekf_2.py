@@ -19,7 +19,7 @@ class EKF:
             self.dsig = lambda sigV: 1 - sigV**2
         elif act_fun == 'relu':
             self.sig = lambda V: np.clip(V, 0, np.inf)
-            self.dsig = lambda sigV: np.where(sigV > 0, 1, 0)
+            self.dsig = lambda sigV: np.where(np.float64(sigV > 0))
         else:
             raise ValueError("The neuron argument must be 'logistic', 'tanh', or 'relu'.")
         # Initial synapse weight matrices
