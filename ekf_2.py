@@ -82,10 +82,12 @@ class EKF:
             if m != len(Y):
                 raise ValueError("X and Y must have the same num!")
             # Check the shape of X
-            X_dim = X.ndim
             if X_dim == 1:
                 if self.n_input != 1:
                     raise ValueError("X must have one input var")
+            else:
+                if X.shape[-1] != self.n_input:
+                    raise ValueError(f"X must have {self.n_input} input vars")            
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
