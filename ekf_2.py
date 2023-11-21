@@ -41,10 +41,6 @@ class EKF:
             return h, l
         return h
     
-    # Assigning labels
-    def assign(self,X,hbound,lbound=0):
-        return np.int64(np.minimum(np.maximum(self.update(X, 0),lbound,hbound)))
-    
     def ekf_alt(self, x, y, h, l, step):
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
@@ -71,10 +67,10 @@ class EKF:
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], x.T), delta[:, np.newaxis]))))
     
-    def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
+    def train(self, epochs, X, Y, method, Q=None, R=None, P=None, step=1, time_tres=-1):
         # Convert train_input and train_output to float64
-        train_input = np.float64(train_input)
-        train_output = np.float64(train_output)
+        X = np.float64(X)
+        Y = np.float64(Y)
         # Initialize variables based on the chosen method
         if method == 'ekf':
             # Extended Kalman Filter (EKF) method
@@ -94,19 +90,19 @@ class EKF:
         # Loop through epochs
         for epoch in range(epochs):
             # Shuffle training data for each epoch
-            train_input_shuffl = [train_input[i] for i in np.random.permutation(len(train_input))]
-            train_output_shuffl = [train_output[i] for i in np.random.permutation(len(train_output))]
+            train_input_shuffl = [X[i] for i in np.random.permutation(len(X))]
+            train_output_shuffl = [Y[i] for i in np.random.permutation(len(Y))]
             y_true_all = []  # List to store true output values
             y_pred_all = []  # List to store predicted output values
             # Iterate through shuffled data
-            for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
-                h, l = self.update(train_input, return_l=True)  # Update and get values
-                self.feed(train_input, train_output, h, l, step)  # Update parameters
+            for i, (x, y) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
+                h, l = self.update(x, return_l=True)  # Update and get values
+                self.feed(x, y, h, l, step)  # Update parameters
                 # If EKF method, append the trace of covariance matrix to the list
                 if method == 'ekf':
                     cov.append(np.trace(self.P))
                 # Check if time_tres condition is met or it's the last iteration
-                if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(train_input) - 1):
+                if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(X) - 1):
                     # Print RMSE (Root Mean Squared Error)
                     print(f"RMSE: {np.sqrt(mean_squared_error(np.vstack(y_true_all), np.vstack(y_pred_all)))}")
         return cov  # Return the list of covariance values
