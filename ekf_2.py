@@ -78,3 +78,4 @@ class EKF:
         train_output = np.float64(train_output)
         if method == 'ekf':
             self.feed = self.ekf_alt
+            self.P = P * np.eye(self.nW, dtype=np.float64)
