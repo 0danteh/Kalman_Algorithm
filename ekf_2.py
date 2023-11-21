@@ -100,3 +100,4 @@ class EKF:
                 if method == 'ekf': cov.append(np.trace(self.P))
                 if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(train_input) - 1):
                     print(f"RMSE: {np.sqrt(mean_squared_error(np.vstack(y_true_all), np.vstack(y_pred_all)))}")
+        return cov
