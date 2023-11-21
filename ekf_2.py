@@ -1,7 +1,5 @@
 import numpy as np
 from time import time
-from scipy.linalg import block_diag
-
 
 class EKF:
     def __init__(self, n_input, n_output, n_hidden, neuron, sprW=5):
@@ -74,9 +72,3 @@ class EKF:
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
     
-    def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, pulse_T=-1):
-        npl = np.linalg
-        train_input=np.float64(train_input)
-        train_output=np.float64(train_output)
-        input_dim = train_input.ndim
-        output_dim = train_output.ndim
