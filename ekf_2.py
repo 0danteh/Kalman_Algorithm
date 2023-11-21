@@ -118,12 +118,7 @@ class EKF:
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
-            # Extended Kalman Filter (EKF) method
-            self.feed = self.ekf_alt
-            self.P = P * np.eye(self.nW, dtype=np.float64)  # Initialize covariance matrix
-            self.Q = np.zeros((self.nW, self.nW), dtype=np.float64) if Q is None else np.float64(Q)  # Process noise covariance
-            self.Q_nonzero = np.any(self.Q)  # Check if Q is non-zero
-            self.R = R * np.eye(self.n_output, dtype=np.float64) if np.isscalar(R) else np.float64(R)  # Measurement noise covariance
+            
         elif method == 'sgd':
             # Stochastic Gradient Descent (SGD) method
             self.feed = self.sgd_alt
