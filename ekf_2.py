@@ -124,6 +124,9 @@ class EKF:
             self.P = self._check_matrix(P, self.nW, "Initial P not specified")
             self.Q = self._check_matrix(Q, self.nW, "Q must be a float scalar or (nW by nW) array")
             self.R = self._check_matrix(R, self.n_output, "R must be specified for the EKF")
+            if np.linalg.matrix_rank(self.R) != len(self.R):
+                raise ValueError("R must be positive definite.")
+
         elif method == 'sgd':
             # Stochastic Gradient Descent (SGD) method
             self.feed = self.sgd_alt
