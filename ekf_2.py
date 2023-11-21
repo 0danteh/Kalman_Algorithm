@@ -74,3 +74,5 @@ class EKF:
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
     
     def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
+        train_input = np.float64(train_input)
+        train_output = np.float64(train_output)
