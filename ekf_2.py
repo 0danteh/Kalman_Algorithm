@@ -104,7 +104,17 @@ class EKF:
 
         # Helper function to check and assign matrix params
         def _check_matrix(self, M, n, error_msg):
-            
+            if M is None:
+                if hasattr(self, 'M') and self.M is not None:
+                    return self.M
+                else:
+                    raise ValueError(error_msg)
+            elif np.isscalar(M):
+                return M*np.eye(n, dtype=np.float64)
+            else:
+                if np.shape(M) != (n, n):
+                    raise ValueError(error_msg)
+                return np.float64(M)
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
