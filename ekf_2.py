@@ -74,7 +74,18 @@ class EKF:
 
         # Check the shape and length of X and Y
         def check_shape(X,Y):
-            
+            X_dim = X.ndim
+            Y_dim = Y.ndim
+            # Get data points
+            m = len(X)
+            # Make sure X and Y have the same num of data points
+            if m != len(Y):
+                raise ValueError("X and Y must have the same num!")
+            # Check the shape of X
+            X_dim = X.ndim
+            if X_dim == 1:
+                if self.n_input != 1:
+                    raise ValueError("X must have one input var")
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
