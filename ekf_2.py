@@ -73,7 +73,7 @@ class EKF:
             if hasattr(self, 'M') and self.M is not None:
                 return self.M
             else:
-                return np.zeros((n,n), dtype=np.float64)
+                raise ValueError(error_msg)
         elif np.isscalar(M):
             return M*np.eye(n, dtype=np.float64)
         else:
@@ -130,23 +130,13 @@ class EKF:
             # Stochastic Gradient Descent (SGD) method
             self.feed = self.sgd_alt
         else: raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
-        last_drwdwn = 0  # Initialize last_drawdown variable
-        cov = []  # List to store covariance values
         # Loop through epochs
         for epoch in range(epochs):
             # Shuffle training data for each epoch
             train_input_shuffl = [X[i] for i in np.random.permutation(len(X))]
             train_output_shuffl = [Y[i] for i in np.random.permutation(len(Y))]
             # Iterate through shuffled data
-            for i, (x, y) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
+            for x, y in enumerate(zip(train_input_shuffl, train_output_shuffl)):
                 h, l = self.update(x, return_l=True)  # Update and get values
                 self.feed(x, y, h, l, step)  # Update parameters
-                # If EKF method, append the trace of covariance matrix to the list
-                if method == 'ekf':
-                    cov.append(np.trace(self.P))
-                # Check if time_tres condition is met or it's the last iteration
-                if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(X) - 1):
-                    # Print RMSE (Root Mean Squared Error)
-                    print(f"RMSE: {np.sqrt(mean_squared_error(np.vstack(y_true_all), np.vstack(y_pred_all)))}")
-        return cov  # Return the list of covariance values
-
+                
