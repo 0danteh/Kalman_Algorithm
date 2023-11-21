@@ -71,6 +71,11 @@ class EKF:
         # Convert train_input and train_output to float64
         X = np.float64(X)
         Y = np.float64(Y)
+
+        # Check the shape and length of X and Y
+        def check_shape(X,Y):
+            
+
         # Initialize variables based on the chosen method
         if method == 'ekf':
             # Extended Kalman Filter (EKF) method
