@@ -74,30 +74,43 @@ class EKF:
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
     
-    def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
-        train_input = np.float64(train_input)
-        train_output = np.float64(train_output)
-        if method == 'ekf':
-            self.feed = self.ekf_alt
-            self.P = P*np.eye(self.nW, dtype=np.float64)
-            self.Q = np.zeros((self.nW, self.nW), dtype=np.float64) if Q is None else np.float64(Q)
-            self.Q_nonzero = np.any(self.Q)
-            self.R = R * np.eye(self.n_output, dtype=np.float64) if np.isscalar(R) else np.float64(R)
-        elif method == 'sgd':
-            self.feed = self.sgd_alt
-        else:
-            raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
-        last_drwdwn = 0
-        cov = []
-        for epoch in range(epochs):
-            train_input_shuffl=[train_input[i] for i in np.random.permutation(len(train_input))]
-            train_output_shuffl=[train_output[i] for i in np.random.permutation(len(train_output))]
-            y_true_all = []
-            y_pred_all = []
-            for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
-                h, l = self.update(train_input, get_l=True)
-                self.update(train_input, train_output, h, l, step)
-                if method == 'ekf': cov.append(np.trace(self.P))
-                if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(train_input) - 1):
-                    print(f"RMSE: {np.sqrt(mean_squared_error(np.vstack(y_true_all), np.vstack(y_pred_all)))}")
-        return cov
+def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
+    # Convert train_input and train_output to float64
+    train_input = np.float64(train_input)
+    train_output = np.float64(train_output)
+    # Initialize variables based on the chosen method
+    if method == 'ekf':
+        # Extended Kalman Filter (EKF) method
+        self.feed = self.ekf_alt
+        self.P = P * np.eye(self.nW, dtype=np.float64)  # Initialize covariance matrix
+        self.Q = np.zeros((self.nW, self.nW), dtype=np.float64) if Q is None else np.float64(Q)  # Process noise covariance
+        self.Q_nonzero = np.any(self.Q)  # Check if Q is non-zero
+        self.R = R * np.eye(self.n_output, dtype=np.float64) if np.isscalar(R) else np.float64(R)  # Measurement noise covariance
+    elif method == 'sgd':
+        # Stochastic Gradient Descent (SGD) method
+        self.feed = self.sgd_alt
+    else:
+        # Raise an error if an invalid method is provided
+        raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
+    last_drwdwn = 0  # Initialize last_drawdown variable
+    cov = []  # List to store covariance values
+    # Loop through epochs
+    for epoch in range(epochs):
+        # Shuffle training data for each epoch
+        train_input_shuffl = [train_input[i] for i in np.random.permutation(len(train_input))]
+        train_output_shuffl = [train_output[i] for i in np.random.permutation(len(train_output))]
+        y_true_all = []  # List to store true output values
+        y_pred_all = []  # List to store predicted output values
+        # Iterate through shuffled data
+        for i, (train_input, train_output) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
+            h, l = self.update(train_input, get_l=True)  # Update and get values
+            self.update(train_input, train_output, h, l, step)  # Update parameters
+            # If EKF method, append the trace of covariance matrix to the list
+            if method == 'ekf':
+                cov.append(np.trace(self.P))
+            # Check if time_tres condition is met or it's the last iteration
+            if (time_tres >= 0 and time() - last_drwdwn > time_tres) or (epoch == epochs - 1 and i == len(train_input) - 1):
+                # Print RMSE (Root Mean Squared Error)
+                print(f"RMSE: {np.sqrt(mean_squared_error(np.vstack(y_true_all), np.vstack(y_pred_all)))}")
+    return cov  # Return the list of covariance values
+
