@@ -118,7 +118,12 @@ class EKF:
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
-            
+            # EKF
+            self.feed = self.ekf_alt
+            # Check for P, Q & R
+            self.P = self._check_matrix(P, self.nW, "Initial P not specified")
+            self.Q = self._check_matrix(Q, self.nW, "Q must be a float scalar or (nW by nW) array")
+            self.R = self._check_matrix(R, self.n_output, "R must be specified for the EKF")
         elif method == 'sgd':
             # Stochastic Gradient Descent (SGD) method
             self.feed = self.sgd_alt
