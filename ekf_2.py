@@ -43,19 +43,19 @@ class EKF:
         return y
     
     # Assigning labels
-    def assign(self, train_input, hbound, lbound=0):
-        return np.int64(np.minimum(np.maximum(self.update(train_input, 0), lbound, hbound)))
+    def assign(self,train_input,hbound,lbound=0):
+        return np.int64(np.minimum(np.maximum(self.update(train_input, 0),lbound,hbound)))
     
     def ekf_alt(self, train_input, train_output, h, l, step):
 
         # Compute NN Jacobian using matrix multiplication
-        jacobian_D = self.W[1][:, :-1] * self.dsig(l)
-        jacobian_H = np.block([[np.kron(jacobian_D, train_input), jacobian_D], [l, 1]]).T
+        jacobian_D = self.W[1][:, :-1]*self.dsig(l)
+        jacobian_H = np.block([[np.kron(jacobian_D, train_input),jacobian_D],[l, 1]]).T
         # Calculate Kalman gain using matrix inversion lemma
         S_inv = np.linalg.inv(self.R) - np.linalg.inv(self.R + jacobian_H @ self.P @ jacobian_H.T) @ jacobian_H @ self.P
         K = self.P @ jacobian_H.T @ S_inv
         # Update weight estimates and covariance using matrix subtraction
-        update_dW = step * K @ (train_output - h)
+        update_dW = step*K @ (train_output - h)
         self.W[0] -= update_dW[:self.W[0].size].reshape(self.W[0].shape)
         self.W[1] -= update_dW[self.W[0].size:].reshape(self.W[1].shape)
         self.P -= K @ jacobian_H @ self.P
@@ -78,4 +78,4 @@ class EKF:
         train_output = np.float64(train_output)
         if method == 'ekf':
             self.feed = self.ekf_alt
-            self.P = P * np.eye(self.nW, dtype=np.float64)
+            self.P = P*np.eye(self.nW, dtype=np.float64)
