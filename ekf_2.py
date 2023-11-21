@@ -99,7 +99,7 @@ class EKF:
                 # If Y is multi-dimensional, check if it has the correct number of output variables
                 if Y.shape[-1] != self.n_output:
                     raise ValueError(f"Y must have {self.n_output} vars!")
-
+            return X,Y
         # Initialize variables based on the chosen method
         if method == 'ekf':
             # Extended Kalman Filter (EKF) method
