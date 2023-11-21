@@ -126,13 +126,10 @@ class EKF:
             self.R = self._check_matrix(R, self.n_output, "R must be specified for the EKF")
             if np.linalg.matrix_rank(self.R) != len(self.R):
                 raise ValueError("R must be positive definite.")
-
         elif method == 'sgd':
             # Stochastic Gradient Descent (SGD) method
             self.feed = self.sgd_alt
-        else:
-            # Raise an error if an invalid method is provided
-            raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
+        else: raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
         last_drwdwn = 0  # Initialize last_drawdown variable
         cov = []  # List to store covariance values
         # Loop through epochs
