@@ -4,7 +4,6 @@ from sklearn.metrics import mean_squared_error
 
 class EKF:
     def __init__(self, n_input, n_output, n_hidden, activ, sprW=5):
-
         # Function dimensionalities
         self.n_input = int(n_input)
         self.n_output = int(n_output)
@@ -30,7 +29,6 @@ class EKF:
         self.P = None
         # Function for pushing signals through a synapse with bias
         self._affine_dot = lambda W, V: W[:, -1] + np.dot(W[:, :-1], np.atleast_1d(V).T)
-    
     def update(self, X, return_l=False):
         X = np.float64(X)
         if X.ndim == 1 and len(X) > self.n_input:
@@ -40,7 +38,6 @@ class EKF:
         if return_l:
             return h, l
         return h
-    
     def ekf_alt(self, x, y, h, l, step):
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
@@ -56,7 +53,6 @@ class EKF:
         # Adjust covariance if Q is nonzero
         if self.Q_nonzero:
             self.P += self.Q
-
     def sgd_alt(self, x, y, h, l, step):
         # compute the error between the hidden layer output and the target output
         error = np.subtract(h, y)
@@ -65,8 +61,7 @@ class EKF:
         # compute the delta term for the first layer by multiplying the error, the weights of the second layer without the bias term, and the derivative of the sigmoid function applied to the hidden layer output
         delta = np.multiply(np.matmul(error, self.W[1][:, :-1]), self.dsig(l)).flatten()
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
-        self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], x.T), delta[:, np.newaxis]))))
-    
+        self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], x.T), delta[:, np.newaxis]))))   
     # Helper function to check and assign matrix params
     def _check_matrix(self, M, n, error_msg):
         if M is None:
@@ -85,7 +80,6 @@ class EKF:
         # Convert train_input and train_output to float64
         X = np.float64(X)
         Y = np.float64(Y)
-
         # Check the shape and length of X and Y
         def check_shape(X,Y):
             X_dim = X.ndim
@@ -115,7 +109,6 @@ class EKF:
                     raise ValueError(f"Y must have {self.n_output} vars!")
             return X,Y
         X,Y = check_shape(X,Y)
-
         # Initialize variables based on the chosen method
         if method == 'ekf':
             # EKF
