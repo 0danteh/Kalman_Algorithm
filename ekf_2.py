@@ -89,3 +89,5 @@ class EKF:
         last_drwdwn = 0
         cov = []
         for epoch in range(epochs):
+            train_input_shuffl=[train_input[i] for i in np.random.permutation(len(train_input))]
+            train_output_shuffl=[train_output[i] for i in np.random.permutation(len(train_output))]
