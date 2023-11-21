@@ -80,3 +80,4 @@ class EKF:
             self.feed = self.ekf_alt
             self.P = P*np.eye(self.nW, dtype=np.float64)
             self.Q = np.zeros((self.nW, self.nW), dtype=np.float64) if Q is None else np.float64(Q)
+            self.Q_nonzero = np.any(self.Q)
