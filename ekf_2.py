@@ -137,8 +137,6 @@ class EKF:
             # Shuffle training data for each epoch
             train_input_shuffl = [X[i] for i in np.random.permutation(len(X))]
             train_output_shuffl = [Y[i] for i in np.random.permutation(len(Y))]
-            y_true_all = []  # List to store true output values
-            y_pred_all = []  # List to store predicted output values
             # Iterate through shuffled data
             for i, (x, y) in enumerate(zip(train_input_shuffl, train_output_shuffl)):
                 h, l = self.update(x, return_l=True)  # Update and get values
