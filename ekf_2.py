@@ -30,24 +30,22 @@ class EKF:
         self.P = None
         # Function for pushing signals through a synapse with bias
         self._affine_dot = lambda W, V: W[:, -1] + np.dot(W[:, :-1], np.atleast_1d(V).T)
-        # Function for computing the RMS error of the current fit to some data set
-        self.compute_rms = lambda train_input, train_output: np.sqrt(np.mean(np.square(self.feedforward(train_input) - train_output)))
     
     def update(self, X, return_l=False):
         X = np.float64(X)
         if X.ndim == 1 and len(X) > self.n_input:
             X = X[:, np.newaxis]
         l = self.sig(self._affine_dot(self.W[0], X))
-        y = self._affine_dot(self.W[1], l)
+        h = self._affine_dot(self.W[1], l)
         if return_l:
-            return y, l
-        return y
+            return h, l
+        return h
     
     # Assigning labels
-    def assign(self,train_input,hbound,lbound=0):
-        return np.int64(np.minimum(np.maximum(self.update(train_input, 0),lbound,hbound)))
+    def assign(self,X,hbound,lbound=0):
+        return np.int64(np.minimum(np.maximum(self.update(X, 0),lbound,hbound)))
     
-    def ekf_alt(self, train_input, train_output, h, l, step):
+    def ekf_alt(self, X, Y, h, l, step):
 
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
