@@ -77,3 +77,4 @@ class EKF:
         train_input = np.float64(train_input)
         train_output = np.float64(train_output)
         if method == 'ekf':
+            self.feed = self.ekf_alt
