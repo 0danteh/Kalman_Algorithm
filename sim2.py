@@ -24,3 +24,9 @@ ekf = EKF(n_input=2, n_output=1, n_hidden=10, neuron='tanh')
 
 # Train the network using the EKF method with Q=0.01, R=0.1, P=100, and step=0.1 for 100 epochs
 cov = ekf.train(epochs=100, train_input=X, train_output=y, method='ekf', Q=0.01, R=0.1, P=100, step=0.1)
+
+# Plot the covariance trace
+plt.plot(cov)
+plt.xlabel('Iteration')
+plt.ylabel('Covariance trace')
+plt.show()
