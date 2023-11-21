@@ -67,6 +67,20 @@ class EKF:
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], x.T), delta[:, np.newaxis]))))
     
+    # Helper function to check and assign matrix params
+    def _check_matrix(self, M, n, error_msg):
+        if M is None:
+            if hasattr(self, 'M') and self.M is not None:
+                return self.M
+            else:
+                raise ValueError(error_msg)
+        elif np.isscalar(M):
+            return M*np.eye(n, dtype=np.float64)
+        else:
+            if np.shape(M) != (n, n):
+                raise ValueError(error_msg)
+            return np.float64(M)
+
     def train(self, epochs, X, Y, method, Q=None, R=None, P=None, step=1, time_tres=-1):
         # Convert train_input and train_output to float64
         X = np.float64(X)
@@ -101,20 +115,6 @@ class EKF:
                     raise ValueError(f"Y must have {self.n_output} vars!")
             return X,Y
         X,Y = check_shape(X,Y)
-
-        # Helper function to check and assign matrix params
-        def _check_matrix(self, M, n, error_msg):
-            if M is None:
-                if hasattr(self, 'M') and self.M is not None:
-                    return self.M
-                else:
-                    raise ValueError(error_msg)
-            elif np.isscalar(M):
-                return M*np.eye(n, dtype=np.float64)
-            else:
-                if np.shape(M) != (n, n):
-                    raise ValueError(error_msg)
-                return np.float64(M)
 
         # Initialize variables based on the chosen method
         if method == 'ekf':
