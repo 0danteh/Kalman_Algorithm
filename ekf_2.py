@@ -86,3 +86,5 @@ class EKF:
             self.feed = self.sgd_alt
         else:
             raise ValueError("Choose the method to be either 'ekf' or 'sgd'.")
+        last_drwdwn = 0
+        cov = []
