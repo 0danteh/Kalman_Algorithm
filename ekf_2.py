@@ -46,7 +46,6 @@ class EKF:
         return np.int64(np.minimum(np.maximum(self.update(X, 0),lbound,hbound)))
     
     def ekf_alt(self, X, Y, h, l, step):
-
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
         jacobian_H = np.block([[np.kron(jacobian_D, X),jacobian_D],[l, 1]]).T
@@ -55,9 +54,9 @@ class EKF:
         K = self.P @ jacobian_H.T @ S_inv
         # Update weight estimates and covariance using matrix subtraction
         update_dW = step*K @ (Y - h)
-        self.W[0] -= update_dW[:self.W[0].size].reshape(self.W[0].shape)
-        self.W[1] -= update_dW[self.W[0].size:].reshape(self.W[1].shape)
-        self.P -= K @ jacobian_H @ self.P
+        self.W[0] = update_dW[:self.W[0].size].reshape(self.W[0].shape)
+        self.W[1] = update_dW[self.W[0].size:].reshape(self.W[1].shape)
+        self.P = K @ jacobian_H @ self.P
         # Adjust covariance if Q is nonzero
         if self.Q_nonzero:
             self.P += self.Q
