@@ -73,7 +73,7 @@ class EKF:
             if hasattr(self, 'M') and self.M is not None:
                 return self.M
             else:
-                raise ValueError(error_msg)
+                return np.zeros((n,n), dtype=np.float64)
         elif np.isscalar(M):
             return M*np.eye(n, dtype=np.float64)
         else:
