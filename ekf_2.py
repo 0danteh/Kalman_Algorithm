@@ -49,12 +49,12 @@ class EKF:
 
         # Compute NN Jacobian using matrix multiplication
         jacobian_D = self.W[1][:, :-1]*self.dsig(l)
-        jacobian_H = np.block([[np.kron(jacobian_D, train_input),jacobian_D],[l, 1]]).T
+        jacobian_H = np.block([[np.kron(jacobian_D, X),jacobian_D],[l, 1]]).T
         # Calculate Kalman gain using matrix inversion lemma
         S_inv = np.linalg.inv(self.R) - np.linalg.inv(self.R + jacobian_H @ self.P @ jacobian_H.T) @ jacobian_H @ self.P
         K = self.P @ jacobian_H.T @ S_inv
         # Update weight estimates and covariance using matrix subtraction
-        update_dW = step*K @ (train_output - h)
+        update_dW = step*K @ (Y - h)
         self.W[0] -= update_dW[:self.W[0].size].reshape(self.W[0].shape)
         self.W[1] -= update_dW[self.W[0].size:].reshape(self.W[1].shape)
         self.P -= K @ jacobian_H @ self.P
