@@ -41,6 +41,7 @@ class EKF:
         if return_l:
             return y, l
         return y
+    
     # Assigning labels
     def assign(self, train_input, hbound, lbound=0):
         return np.int64(np.minimum(np.maximum(self.update(train_input, 0), lbound, hbound)))
@@ -72,3 +73,4 @@ class EKF:
         # update the weights of the first layer by subtracting the product of the delta, the learning rate, and the input layer output with a bias term
         self.W[0] = np.subtract(self.W[0], np.multiply(step, np.hstack((np.matmul(delta[:, np.newaxis], train_input.T), delta[:, np.newaxis]))))
     
+    def train(self, epochs, train_input, train_output, method, Q=None, R=None, P=None, step=1, time_tres=-1):
