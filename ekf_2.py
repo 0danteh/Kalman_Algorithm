@@ -101,7 +101,11 @@ class EKF:
                     raise ValueError(f"Y must have {self.n_output} vars!")
             return X,Y
         X,Y = check_shape(X,Y)
-        
+
+        # Helper function to check and assign matrix params
+        def _check_matrix(self, M, n, error_msg):
+            
+
         # Initialize variables based on the chosen method
         if method == 'ekf':
             # Extended Kalman Filter (EKF) method
