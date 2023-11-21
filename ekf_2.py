@@ -3,21 +3,21 @@ from time import time
 from sklearn.metrics import mean_squared_error
 
 class EKF:
-    def __init__(self, n_input, n_output, n_hidden, act_fun, sprW=5):
+    def __init__(self, n_input, n_output, n_hidden, activ, sprW=5):
 
         # Function dimensionalities
         self.n_input = int(n_input)
         self.n_output = int(n_output)
         self.n_hidden = int(n_hidden)
         # Neuron type
-        self.act_fun = act_fun
-        if act_fun == 'logistic':
+        self.activ = activ
+        if activ == 'logistic':
             self.sig = lambda V: 1 / (1 + np.exp(-V))
             self.dsig = lambda sigV: sigV * (1 - sigV)
-        elif act_fun == 'tanh':
+        elif activ == 'tanh':
             self.sig = np.tanh
             self.dsig = lambda sigV: 1 - sigV**2
-        elif act_fun == 'relu':
+        elif activ == 'relu':
             self.sig = lambda V: np.clip(V, 0, np.inf)
             self.dsig = lambda sigV: np.where(np.float64(sigV > 0))
         else:
