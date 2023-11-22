@@ -18,6 +18,10 @@ def _check_matrix(M,n,error_msg):
         return np.float64(M)
 
 class KF_EKF:
+
+    def sig(self,V):
+        if self.activ == 'logistic':
+
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
         self.n_input=int(n_input)
