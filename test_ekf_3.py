@@ -75,3 +75,6 @@ class KF_EKF:
         return H
     
     def update_weights_and_cov(self,K,dW):
+        # Update weights and covariances
+        self.W[0]=self.W[0]+dW[:self.W[0].size].reshape(self.W[0].shape)
+        
