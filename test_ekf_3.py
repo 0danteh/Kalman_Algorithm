@@ -8,3 +8,5 @@ def _check_matrix(M,n,error_msg):
     if M is None:
         if hasattr('M', '__dict__') and M is not None:
             return M
+        else:
+            raise ValueError(error_msg)
