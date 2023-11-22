@@ -30,6 +30,8 @@ class KF_EKF:
     def deriv_sigm(self, sigmV):
         if self.activ == 'logistic':
             return sigmV*(1-sigmV)
+        elif self.activ == 'tanh':
+            return 1-sigmV**2
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
