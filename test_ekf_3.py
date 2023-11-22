@@ -62,3 +62,5 @@ class KF_EKF:
             X=X[:,np.newaxis]
         l = self.sig(self._affine_transf(self.W[0],X))
         h = self._affine_transf(self.W[1],1)
+        return (h,l) if return_l else h
+    
