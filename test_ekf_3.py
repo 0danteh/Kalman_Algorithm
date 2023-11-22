@@ -61,3 +61,4 @@ class KF_EKF:
         # Ensuring X has 2 dims
         if X.ndim==1 and len(X)>self.n_input:
             X=X[:,np.newaxis]
+        l = self.sig(self._affine_transf(self.W[0],X))
