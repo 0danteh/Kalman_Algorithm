@@ -65,3 +65,6 @@ class KF_EKF:
         return (h,l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
+    def jacobian(self,x,l):
+        # Compute the jacobian
+        D=(self.W[1][:,:-1]*self.deriv_sigm(l)).flatten()
