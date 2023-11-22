@@ -57,3 +57,4 @@ class KF_EKF:
 
     # Feeding the neural network
     def update(self,X,return_l=False):
+        X=np.float64(X)
