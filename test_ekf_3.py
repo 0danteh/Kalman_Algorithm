@@ -19,13 +19,15 @@ def _check_matrix(M,n,error_msg):
 
 class KF_EKF:
 
-    def sig(self,V):
+    def sigm(self,V):
         if self.activ == 'logistic':
             return 1/(1+np.exp(-V))
         elif self.activ == 'tanh':
             return np.tanh(V)
         elif self.activ == 'relu':
             return np.clip(V,0,np.inf)
+        
+    def deriv_sigm(self, sigmV):
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
