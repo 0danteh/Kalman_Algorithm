@@ -23,7 +23,8 @@ class KF_EKF:
         if self.activ == 'logistic':
             return 1/(1+np.exp(-V))
         elif self.activ == 'tanh':
-            
+            return np.tanh(V)
+        
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
