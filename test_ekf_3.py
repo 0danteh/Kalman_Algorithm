@@ -9,7 +9,7 @@ def _check_matrix(M,n,error_msg):
         if hasattr('M', '__dict__') and M is not None:
             return M
         else:
-            raise ValueError(error_msg)
+            pass
     elif np.isscalar(M):
         return M*np.eye(n, dtype=np.float64)
     else: 
