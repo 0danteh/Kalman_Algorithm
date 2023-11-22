@@ -33,7 +33,7 @@ class KF_EKF:
         elif self.activ == 'tanh':
             return 1-sigmV**2
         elif self.activ == 'relu':
-            
+            return np.where(np.float64(sigmV>0))
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
