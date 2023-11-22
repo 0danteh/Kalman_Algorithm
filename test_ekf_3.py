@@ -16,3 +16,7 @@ def _check_matrix(M,n,error_msg):
         if np.shape(M) != (n,n):
             raise ValueError(error_msg)
         return np.float64(M)
+
+class KF_EKF:
+    def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
+        
