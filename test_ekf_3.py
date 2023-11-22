@@ -68,3 +68,4 @@ class KF_EKF:
     def jacobian(self,x,l):
         # Compute the jacobian
         D=(self.W[1][:,:-1]*self.deriv_sigm(l)).flatten()
+        H=np.
