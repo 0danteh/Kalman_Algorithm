@@ -6,5 +6,5 @@ from scipy.linalg import block_diag
 
 def _check_matrix(M,n,error_msg):
     if M is None:
-        if hasattr('M') and M is not None:
+        if hasattr('M', '__dict__') and M is not None:
             return M
