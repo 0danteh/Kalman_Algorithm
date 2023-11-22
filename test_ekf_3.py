@@ -54,3 +54,6 @@ class KF_EKF:
         self.num_weights = sum([np.size(w) for w in self.W])
         self.P = None
         self._affine_transf = lambda W,V: np.dot(np.atleast_1d(V), W[:,:-1].T)+W[:,-1]
+
+    # Feeding the neural network
+    def update(self,X,return_l=False):
