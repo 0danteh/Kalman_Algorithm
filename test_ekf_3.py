@@ -43,7 +43,6 @@ class KF_EKF:
         self.activ=self.activ
         if activ not in ['logistic', 'tanh', 'relu']:
             raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
-
         # Random arrays with diff shapes
         def random_weights(shape):
             return weight_scale*(2*np.random.sample(shape)-1)
@@ -62,3 +61,4 @@ class KF_EKF:
         if X.ndim==1 and len(X)>self.n_input:
             X=X[:,np.newaxis]
         l = self.sig(self._affine_transf(self.W[0],X))
+        h = self._affine_transf(self.W[1],1)
