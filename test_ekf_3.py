@@ -50,3 +50,5 @@ class KF_EKF:
         # Inilialising weight matrix
         weight_scale = np.float64(weight_scale)
         # Create a list of two arrays with random weights
+        self.W = [random_weights((n_hidden, n_input+1)), random_weights((n_output,n_hidden+1))]
+    
