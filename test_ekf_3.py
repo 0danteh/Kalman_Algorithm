@@ -22,6 +22,8 @@ class KF_EKF:
     def sig(self,V):
         if self.activ == 'logistic':
             return 1/(1+np.exp(-V))
+        elif self.activ == 'tanh':
+            
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
