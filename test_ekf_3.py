@@ -24,3 +24,5 @@ class KF_EKF:
         self.n_output=int(n_output)
         self.n_hidden=int(n_hidden)
         self.activ=self.activ
+        if activ not in ['logistic', 'tanh', 'relu']:
+            raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
