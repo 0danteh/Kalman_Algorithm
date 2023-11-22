@@ -60,3 +60,4 @@ class KF_EKF:
         X=np.float64(X)
         # Ensuring X has 2 dims
         if X.ndim==1 and len(X)>self.n_input:
+            X=X[:,np.newaxis]
