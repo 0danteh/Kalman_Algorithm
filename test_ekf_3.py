@@ -12,4 +12,7 @@ def _check_matrix(M,n,error_msg):
             raise ValueError(error_msg)
     elif np.isscalar(M):
         return M*np.eye(n, dtype=np.float64)
-    
+    else: 
+        if np.shape(M) != (n,n):
+            raise ValueError(error_msg)
+        return np.float64(M)
