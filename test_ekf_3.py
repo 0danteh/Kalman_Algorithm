@@ -84,3 +84,4 @@ class KF_EKF:
     # Compute the kalman gain
     def kalman_gain(self,P,H,R):
         K=P.dot(H.T).dot(npl.inv(H.dot(P).dot(H.T)+R))
+        return K
