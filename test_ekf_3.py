@@ -28,6 +28,8 @@ class KF_EKF:
             return np.clip(V,0,np.inf)
         
     def deriv_sigm(self, sigmV):
+        if self.activ == 'logistic':
+            
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
