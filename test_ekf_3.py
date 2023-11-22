@@ -89,3 +89,5 @@ class KF_EKF:
     def _ekf(self,x,y,h,l,step):
         # Update the network
         self.H=self.jacobian(x,l)
+        # Get the Kalman gain
+        K=self.kalman_gain(self.P,self.H,self.R)
