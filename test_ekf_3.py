@@ -64,3 +64,4 @@ class KF_EKF:
         h = self._affine_transf(self.W[1],1)
         return (h,l) if return_l else h
     
+    # Calculate the jacobian for the EKF algorithm
