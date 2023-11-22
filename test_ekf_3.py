@@ -25,7 +25,7 @@ class KF_EKF:
         elif self.activ == 'tanh':
             return np.tanh(V)
         elif self.activ == 'relu':
-            
+            return np.clip(V,0,np.inf)
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
