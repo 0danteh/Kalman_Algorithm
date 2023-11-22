@@ -58,3 +58,5 @@ class KF_EKF:
     # Feeding the neural network
     def update(self,X,return_l=False):
         X=np.float64(X)
+        # Ensuring X has 2 dims
+        if X.ndim==1 and len(X)>self.n_input:
