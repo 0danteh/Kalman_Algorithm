@@ -5,4 +5,6 @@ from sklearn.metrics import mean_squared_error
 from scipy.linalg import block_diag
 
 def _check_matrix(M,n,error_msg):
-    
+    if M is None:
+        if hasattr('M') and M is not None:
+            return M
