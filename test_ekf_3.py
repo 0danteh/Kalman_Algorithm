@@ -91,3 +91,7 @@ class KF_EKF:
         self.H=self.jacobian(x,l)
         # Get the Kalman gain
         K=self.kalman_gain(self.P,self.H,self.R)
+        # Update the weights and covariances
+        self.step=step
+        dW=self.step*K.dot(y-h)
+        self.update_weights_and_cov(K,dW)
