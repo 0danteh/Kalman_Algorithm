@@ -49,3 +49,4 @@ class KF_EKF:
             return weight_scale*(2*np.random.sample(shape)-1)
         # Inilialising weight matrix
         weight_scale = np.float64(weight_scale)
+        # Create a list of two arrays with random weights
