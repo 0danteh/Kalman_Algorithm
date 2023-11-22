@@ -23,3 +23,4 @@ class KF_EKF:
         self.n_input=int(n_input)
         self.n_output=int(n_output)
         self.n_hidden=int(n_hidden)
+        self.activ=self.activ
