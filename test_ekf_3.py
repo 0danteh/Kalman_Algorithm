@@ -47,3 +47,5 @@ class KF_EKF:
         # Random arrays with diff shapes
         def random_weights(shape):
             return weight_scale*(2*np.random.sample(shape)-1)
+        # Inilialising weight matrix
+        weight_scale = np.float64(weight_scale)
