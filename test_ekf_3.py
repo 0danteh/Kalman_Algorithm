@@ -32,6 +32,8 @@ class KF_EKF:
             return sigmV*(1-sigmV)
         elif self.activ == 'tanh':
             return 1-sigmV**2
+        elif self.activ == 'relu':
+            
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
