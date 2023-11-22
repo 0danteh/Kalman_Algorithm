@@ -85,3 +85,6 @@ class KF_EKF:
     def kalman_gain(self,P,H,R):
         K=P.dot(H.T).dot(npl.inv(H.dot(P).dot(H.T)+R))
         return K
+    
+    def _ekf(self,x,y,h,l,step):
+        self.H=self.jacobian(x,l)
