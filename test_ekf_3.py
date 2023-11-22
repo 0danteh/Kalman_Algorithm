@@ -80,3 +80,7 @@ class KF_EKF:
         self.W[1]=self.W[1]+dW[self.W[0].size].reshape(self.W[1].shape)
         self.P=self.P-np.dot(K,self.H.dot(self.P))
         if self.Q_nonzero: self.P=self.P+self.Q
+
+    # Compute the kalman gain
+    def kalman_gain(self,P,H,R):
+        K=P.dot(H.T).dot(npl.inv(H.dot(P).dot(H.T)+R))
