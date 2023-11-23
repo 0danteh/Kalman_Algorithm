@@ -105,7 +105,7 @@ class EKF:
         # Get the Kalman gain
         K=self.kalman_gain(self.P,self.H,self.R)
         # Update the weights and covariances
-        dW=self.step*K.dot(y-h)
+        dW=step*K.dot(y-h)
         self.update_weights_and_cov(K,dW)
 
     def train(self,n_epochs,X,Y,P=None,Q=None,R=None,step=1):
