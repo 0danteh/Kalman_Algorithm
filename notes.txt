@@ -1,3 +1,0 @@
-
-- To update the EKF algo you need to calculate the Jacobian of the matrices H,S,K
-
