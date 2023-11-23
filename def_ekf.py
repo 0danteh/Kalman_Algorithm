@@ -122,5 +122,5 @@ class KF_EKF:
             if self.P is None:
                 raise ValueError("P needs to be specified.")
         else:
-            
+            self.P=_check_matrix(P,self.num_weights,"P must be a float scalar or (num_weights by num_weights) array.")
         
