@@ -96,7 +96,7 @@ class EKF:
 
     # Compute the kalman gain
     def kalman_gain(self,P,H,R):
-        K=P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T)+R))
+        K=P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T)+self.R))
         return K
     
     def _ekf(self,x,y,h,l,step):
