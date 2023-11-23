@@ -68,10 +68,10 @@ class KF_EKF:
         return (h,l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
-    def jacobian(self,u,l):
+    def jacobian(self,x,l):
         # Compute the jacobian
         D=(self.W[1][:,:-1]*self.deriv_sigm(l)).flatten()
-        H=np.hstack((outer_plus_bias(D,u).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l,[1])), self.n_output).reshape(self.n_output,self.n_hidden+1))))
+        H=np.hstack((outer_plus_bias(D,x).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l,[1])), self.n_output).reshape(self.n_output,self.n_hidden+1))))
         return H
     
     def update_weights_and_cov(self,K,dW):
