@@ -133,4 +133,4 @@ class KF_EKF:
 
         # Start the training
         for epoch in range(n_epochs):
-            np.random.permutation()
+            huffl=np.random.permutation(len(X))
