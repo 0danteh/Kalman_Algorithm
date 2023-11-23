@@ -118,4 +118,9 @@ class KF_EKF:
         X,Y=validate_shape(X,Y,self.n_input,self.n_output)
         # Initialise the EKF algorithm
         self.feed=self._ekf
+        if P is None:
+            if self.P is None:
+                raise ValueError("P needs to be specified.")
+        else:
+            
         
