@@ -127,4 +127,5 @@ class KF_EKF:
         if np.any(self.Q): self.Q_nonzero=True
         else: self.Q_nonzero=False
         self.R=_check_matrix(R,self.n_output,"R must be a float scalar or (n_output by n_output) array.")
-        
+        if npl.matrix_rank(self.R)!=len(self.R):
+            raise ValueError("R must be definite and positive.")
