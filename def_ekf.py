@@ -17,6 +17,8 @@ def _check_matrix(M,n,error_msg):
             raise ValueError(error_msg)
         return np.float64(M)
 
+def validate_shape(X,Y,n_input,n_output):
+
 def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
 
