@@ -114,4 +114,8 @@ class KF_EKF:
     def train(self,n_epochs,X,Y,P=None,Q=None,R=None):
         X=np.float64(X)
         Y=np.float64(Y)
+        # Check if the shapes are as expected
+        X,Y=validate_shape(X,Y,self.n_input,self.n_output)
+        # Initialise the EKF algorithm
+        self.feed=self._ekf
         
