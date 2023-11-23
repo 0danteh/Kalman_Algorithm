@@ -97,4 +97,6 @@ class KF_EKF:
         self.update_weights_and_cov(K,dW)
 
     def train(self,n_epochs,X,Y,P=None,Q=None,R=None):
+        X=np.float64(X)
+        Y=np.float64(Y)
         
