@@ -24,6 +24,7 @@ def validate_shape(X,Y,n_input,n_output):
     # Check for the input variables to avoid shape-related problems
     if X.shape[-1] != n_input:
         raise ValueError(f"X must have {n_input} input vars")
+    # Check for Y now
     
 
 def outer_plus_bias(x,y,bias=1):
