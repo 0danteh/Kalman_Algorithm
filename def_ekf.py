@@ -21,7 +21,10 @@ def validate_shape(X,Y,n_input,n_output):
     # check for the same number of data points
     if X.shape[0] != Y.shape[0]:
         raise ValueError("U and Y must have the same number of data points")
-
+    # Check for the input variables to avoid shape-related problems
+    if X.shape[-1] != n_input:
+        raise ValueError(f"X must have {n_input} input vars")
+    
 
 def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
