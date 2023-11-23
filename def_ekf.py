@@ -37,7 +37,7 @@ def outer_plus_bias(x,y,bias=1):
 class EKF:
     def sigm(self,V):
         if self.activ == 'logistic':
-            return 1/(1+np.exp(-V))
+            return (1 + np.exp(-V))**-1
         elif self.activ == 'tanh':
             return np.tanh(V)
         elif self.activ == 'relu':
