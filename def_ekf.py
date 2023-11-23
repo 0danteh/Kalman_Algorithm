@@ -110,7 +110,7 @@ class KF_EKF:
         dW=self.step*K.dot(y-h)
         self.update_weights_and_cov(K,dW)
 
-    def train(self,n_epochs,X,Y,P=None,Q=None,R=None):
+    def train(self,n_epochs,X,Y,P=None,Q=None,R=None,step=1):
         X=np.float64(X)
         Y=np.float64(Y)
         # Check if the shapes are as expected
@@ -139,3 +139,5 @@ class KF_EKF:
                       unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
             # Update the neural networks and train
             for i, (x,y) in enumerate(zip(pbar, train_output_shuffled)):
+                h,l=self.update(x,return_l=True)
+                self.feed(x,y,h,l,step)
