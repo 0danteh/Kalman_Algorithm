@@ -30,6 +30,7 @@ def validate_shape(X,Y,n_input,n_output):
     # Reshape Y as a column vector if one-dimensional
     if Y.ndim == 1 and Y.size>n_output:
         Y=Y.reshape(-1,1)
+    return X,Y
 
 def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
