@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.linalg as npl
+from tqdm import tqdm
 from scipy.linalg import block_diag
 
 def _check_matrix(M,n,error_msg):
