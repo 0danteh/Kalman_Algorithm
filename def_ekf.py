@@ -19,6 +19,9 @@ def _check_matrix(M,n,error_msg):
 
 def validate_shape(X,Y,n_input,n_output):
     # check for the same number of data points
+    if X.shape[0] != Y.shape[0]:
+        raise ValueError("U and Y must have the same number of data points")
+
 
 def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
