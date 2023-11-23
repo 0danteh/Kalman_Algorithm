@@ -135,6 +135,6 @@ class KF_EKF:
             shuffl=np.random.permutation(len(X))
             train_input_shuffled=X[shuffl]
             train_output_shuffled=Y[shuffl]
-            pbar=tqdm()
+            pbar=tqdm(train_input_shuffled, desc=f"Epoch {epoch+1}/{n_epochs}", unit="batch")
 
 
