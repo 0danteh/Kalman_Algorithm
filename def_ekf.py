@@ -35,7 +35,6 @@ def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
 
 class EKF:
-
     def sigm(self,V):
         if self.activ == 'logistic':
             return 1/(1+np.exp(-V))
