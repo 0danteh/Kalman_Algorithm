@@ -1,7 +1,5 @@
 import numpy as np
 import numpy.linalg as npl
-from time import time
-from sklearn.metrics import mean_squared_error
 from scipy.linalg import block_diag
 
 def _check_matrix(M,n,error_msg):
@@ -136,4 +134,5 @@ class KF_EKF:
             shuffl=np.random.permutation(len(X))
             train_input_shuffled=X[shuffl]
             train_output_shuffled=Y[shuffl]
-            
+
+
