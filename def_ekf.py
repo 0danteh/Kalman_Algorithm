@@ -25,7 +25,8 @@ def validate_shape(X,Y,n_input,n_output):
     if X.shape[-1] != n_input:
         raise ValueError(f"X must have {n_input} input vars")
     # Check for Y now
-    
+    if Y.shape[-1] != n_output:
+        raise ValueError(f"Y must have {n_output} output vars")
 
 def outer_plus_bias(x,y,bias=1):
     return np.hstack((np.outer(x,y),x[:,np.newaxis]*bias))
