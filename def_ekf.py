@@ -124,3 +124,4 @@ class KF_EKF:
         else:
             self.P=_check_matrix(P,self.num_weights,"P must be a float scalar or (num_weights by num_weights) array.")
         self.Q=_check_matrix(Q,self.num_weights,"Q must be a float scalar or (num_weights by num_weights) array.")
+        if np.any(self.Q): self.Q_nonzero=True
