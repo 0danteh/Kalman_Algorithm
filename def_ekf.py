@@ -95,3 +95,6 @@ class KF_EKF:
         self.step=step
         dW=self.step*K.dot(y-h)
         self.update_weights_and_cov(K,dW)
+
+    def train(self,n_epochs,X,Y,P=None,Q=None,R=None):
+        
