@@ -135,5 +135,6 @@ class KF_EKF:
             shuffl=np.random.permutation(len(X))
             train_input_shuffled=X[shuffl]
             train_output_shuffled=Y[shuffl]
+            pbar=tqdm()
 
 
