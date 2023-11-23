@@ -129,3 +129,5 @@ class KF_EKF:
         self.R=_check_matrix(R,self.n_output,"R must be a float scalar or (n_output by n_output) array.")
         if npl.matrix_rank(self.R)!=len(self.R):
             raise ValueError("R must be definite and positive.")
+
+        # Start the training
