@@ -71,20 +71,20 @@ class EKF:
         self._affine_transf = lambda W,V: np.dot(np.atleast_1d(V), W[:,:-1].T)+W[:,-1]
 
     # Feeding the neural network
-    def update(self,X,return_l=False):
-        X=np.float64(X)
+    def update(self,U,return_l=False):
+        U=np.float64(U)
         # Ensuring X has 2 dims
-        if X.ndim==1 and len(X)>self.n_input:
-            X=X[:,np.newaxis]
-        l = self.sigm(self._affine_transf(self.W[0],X))
+        if U.ndim==1 and len(U)>self.n_input:
+            U=U[:,np.newaxis]
+        l = self.sigm(self._affine_transf(self.W[0],U))
         h = self._affine_transf(self.W[1],1)
         return (h,l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
-    def jacobian(self,x,l):
+    def jacobian(self,u,l):
         # Compute the jacobian
         D=(self.W[1][:,:-1]*self.deriv_sigm(l)).flatten()
-        H=np.hstack((outer_plus_bias(D,x).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l,[1])), self.n_output).reshape(self.n_output,self.n_hidden+1))))
+        H=np.hstack((outer_plus_bias(D,u).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l,[1])), self.n_output).reshape(self.n_output,self.n_hidden+1))))
         return H
     
     def update_weights_and_cov(self,K,dW):
@@ -99,20 +99,20 @@ class EKF:
         K=P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T)+self.R))
         return K
     
-    def _ekf(self,x,y,h,l,step):
+    def _ekf(self,u,y,h,l,step):
         # Update the network
-        self.H=self.jacobian(x,l)
+        self.H=self.jacobian(u,l)
         # Get the Kalman gain
         K=self.kalman_gain(self.P,self.H,self.R)
         # Update the weights and covariances
         dW=step*K.dot(y-h)
         self.update_weights_and_cov(K,dW)
 
-    def train(self,n_epochs,X,Y,P=None,Q=None,R=None,step=1):
-        X=np.float64(X)
+    def train(self,n_epochs,U,Y,P=None,Q=None,R=None,step=1):
+        U=np.float64(U)
         Y=np.float64(Y)
-        # Check if the shapes are as expected
-        X,Y=validate_shape(X,Y,self.n_input,self.n_output)
+        # Check if the shapes are as eUpected
+        U,Y=validate_shape(U,Y,self.n_input,self.n_output)
         # Initialise the EKF algorithm
         self.feed=self._ekf
         # Check for the correct shapes
@@ -130,12 +130,12 @@ class EKF:
 
         # Start the training
         for epoch in range(n_epochs):
-            shuffl=np.random.permutation(len(X))
-            train_input_shuffled=X[shuffl]
+            shuffl=np.random.permutation(len(U))
+            train_input_shuffled=U[shuffl]
             train_output_shuffled=Y[shuffl]
             pbar=tqdm(train_input_shuffled, desc=f"Epoch {epoch+1}/{n_epochs}", 
                       unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
             # Update the neural networks and train
-            for i, (x,y) in enumerate(zip(pbar, train_output_shuffled)):
-                h,l=self.update(x,return_l=True)
-                self.feed(x,y,h,l,step)
+            for i, (u,y) in enumerate(zip(pbar, train_output_shuffled)):
+                h,l=self.update(u,return_l=True)
+                self.feed(u,y,h,l,step)
