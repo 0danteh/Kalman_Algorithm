@@ -31,21 +31,21 @@ def outer_plus_bias(x, y, bias=1):
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
 class EKF:
-    def sigm(self,V):
+    def sig(self, V):
         if self.activ == 'logistic':
             return (1 + np.exp(-V))**-1
         elif self.activ == 'tanh':
             return np.tanh(V)
         elif self.activ == 'relu':
-            return np.clip(V,0,np.inf)
+            return np.clip(V, 0, np.inf)
         
-    def deriv_sigm(self, sigmV):
+    def dsig(self, sigV):
         if self.activ == 'logistic':
-            return sigmV*(1-sigmV)
+            return sigV * (1 - sigV)
         elif self.activ == 'tanh':
-            return 1-sigmV**2
+            return 1 - sigV**2
         elif self.activ == 'relu':
-            return np.float64(sigmV>0)
+                return np.float64(sigV > 0)
 
     def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
         
