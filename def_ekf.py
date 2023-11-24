@@ -82,12 +82,12 @@ class EKF:
         H = np.hstack((outer_plus_bias(D, u).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l, [1])), self.n_output).reshape(self.n_output, self.n_hidden+1))))
         return H
     
-    def update_weights_and_cov(self,K,dW):
-        # Update weights and covariances
-        self.W[0]=self.W[0]+dW[:self.W[0].size].reshape(self.W[0].shape)
-        self.W[1]=self.W[1]+dW[self.W[0].size].reshape(self.W[1].shape)
-        self.P=self.P-np.dot(K,self.H.dot(self.P))
-        if self.Q_nonzero: self.P=self.P+self.Q
+    def update_weights_and_cov(self, K, dW):
+        # Update weight estimates and covariance
+        self.W[0] = self.W[0] + dW[:self.W[0].size].reshape(self.W[0].shape)
+        self.W[1] = self.W[1] + dW[self.W[0].size:].reshape(self.W[1].shape)
+        self.P = self.P - np.dot(K, self.H.dot(self.P))
+        if self.Q_nonzero: self.P = self.P + self.Q
 
     # Compute the kalman gain
     def kalman_gain(self,P,H,R):
