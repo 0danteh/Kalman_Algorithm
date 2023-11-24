@@ -77,7 +77,7 @@ class EKF:
         if U.ndim==1 and len(U)>self.n_input:
             U=U[:,np.newaxis]
         l = self.sigm(self._affine_transf(self.W[0],U))
-        h = self._affine_transf(self.W[1],1)
+        h = self._affine_transf(self.W[1],l)
         return (h,l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
