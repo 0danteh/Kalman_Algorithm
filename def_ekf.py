@@ -123,9 +123,9 @@ class EKF:
 
         # Start the training
         for epoch in range(n_epochs):
-            shuffl=np.random.permutation(len(U))
-            train_input_shuffled=U[shuffl]
-            train_output_shuffled=Y[shuffl]
+            shuffl = np.random.permutation(len(U))
+            train_input_shuffled = U[shuffl]
+            train_output_shuffled = Y[shuffl]
             pbar=tqdm(train_input_shuffled, desc=f"Epoch {epoch+1}/{n_epochs}", 
                       unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
             # Update the neural networks and train
