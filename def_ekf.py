@@ -68,13 +68,12 @@ class EKF:
 
     # Feeding the neural network
     def update(self,U,return_l=False):
-        U=np.float64(U)
-        # Ensuring X has 2 dims
-        if U.ndim==1 and len(U)>self.n_input:
-            U=U[:,np.newaxis]
-        l = self.sigm(self._affine_transf(self.W[0],U))
-        h = self._affine_transf(self.W[1],l)
-        return (h,l) if return_l else h
+        U = np.float64(U)
+        if U.ndim == 1 and len(U) > self.n_input:
+            U = U[:, np.newaxis]
+        l=self.sig(self.affine_transform(self.W[0], U))
+        h=self.affine_transform(self.W[1], l)
+        return (h, l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
     def jacobian(self,u,l):
