@@ -49,10 +49,10 @@ class EKF:
 
     def __init__(self,n_input,n_output,n_hidden,activ,weight_scale=5):
         
-        self.n_input=int(n_input)
-        self.n_output=int(n_output)
-        self.n_hidden=int(n_hidden)
-        self.activ=activ
+        self.n_input = int(n_input)
+        self.n_output = int(n_output)
+        self.n_hidden = int(n_hidden)
+        self.activ = activ
         if activ not in ['logistic', 'tanh', 'relu']:
             raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
         # Random arrays with diff shapes
@@ -61,9 +61,9 @@ class EKF:
         # Inilialising weight matrix
         weight_scale = np.float64(weight_scale)
         # Create a list of two arrays with random weights
-        self.W=[random_weights((n_hidden,n_input+1)),random_weights((n_output,n_hidden+1))]
-        self.num_weights=sum([np.size(w) for w in self.W])
-        self.P=None
+        self.W = [random_weights((n_hidden,n_input+1)),random_weights((n_output,n_hidden+1))]
+        self.num_weights = sum([np.size(w) for w in self.W])
+        self.P = None
         self.affine_transform = lambda W,V: np.dot(np.atleast_1d(V), W[:, :-1].T) + W[:, -1]
 
     # Feeding the neural network
@@ -71,8 +71,8 @@ class EKF:
         U = np.float64(U)
         if U.ndim == 1 and len(U) > self.n_input:
             U = U[:, np.newaxis]
-        l=self.sig(self.affine_transform(self.W[0], U))
-        h=self.affine_transform(self.W[1], l)
+        l = self.sig(self.affine_transform(self.W[0], U))
+        h = self.affine_transform(self.W[1], l)
         return (h, l) if return_l else h
     
     # Calculate the jacobian for the EKF algorithm
