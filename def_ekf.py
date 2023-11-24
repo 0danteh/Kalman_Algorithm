@@ -103,25 +103,23 @@ class EKF:
         dW = step*K.dot(y-h)
         self.update_weights_and_cov(K, dW)
 
-    def train(self,n_epochs,U,Y,P=None,Q=None,R=None,step=1):
-        U=np.float64(U)
-        Y=np.float64(Y)
-        # Check if the shapes are as eUpected
-        U,Y=validate_shape(U,Y,self.n_input,self.n_output)
-        # Initialise the EKF algorithm
-        self.feed=self._ekf
-        # Check for the correct shapes
+    def train(self, n_epochs, U, Y, method='ekf', P=None, Q=None, R=None, step=1):
+        U = np.float64(U)
+        Y = np.float64(Y)
+        U,Y = validate_shape(U,Y,self.n_input,self.n_output)
+        # Initialise EKF
+        self.feed = self._ekf
         if P is None:
             if self.P is None:
-                raise ValueError("P needs to be specified.")
+                raise ValueError("Initial P not specified.")
         else:
-            self.P=_check_matrix(P,self.num_weights,"P must be a float scalar or (num_weights by num_weights) array.")
-        self.Q=_check_matrix(Q,self.num_weights,"Q must be a float scalar or (num_weights by num_weights) array.")
-        if np.any(self.Q): self.Q_nonzero=True
-        else: self.Q_nonzero=False
-        self.R=_check_matrix(R,self.n_output,"R must be a float scalar or (n_output by n_output) array.")
-        if npl.matrix_rank(self.R)!=len(self.R):
-            raise ValueError("R must be definite and positive.")
+            self.P = _check_matrix(P, self.num_weights, "P must be a float scalar or (num_weights by num_weights) array.")
+        self.Q = _check_matrix(Q, self.num_weights, "Q must be a float scalar or (num_weights by num_weights) array.")
+        if np.any(self.Q): self.Q_nonzero = True
+        else: self.Q_nonzero = False
+        self.R = _check_matrix(R, self.n_output, "R must be a float scalar or (n_output by n_output) array.")
+        if npl.matrix_rank(self.R) != len(self.R):
+            raise ValueError("R must be positive definite.")
 
         # Start the training
         for epoch in range(n_epochs):
