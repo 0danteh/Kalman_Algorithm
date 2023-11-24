@@ -47,12 +47,12 @@ class EKF:
         elif self.activ == 'relu':
                 return np.float64(sigV > 0)
 
-    def __init__(self, n_input, n_output, n_hidden, activ, weight_scale=5):
+    def __init__(self,n_input,n_output,n_hidden,activ,weight_scale=5):
         
-        self.n_input=int(n_input)
-        self.n_output=int(n_output)
-        self.n_hidden=int(n_hidden)
-        self.activ=activ
+        self.n_input = int(n_input)
+        self.n_output = int(n_output)
+        self.n_hidden = int(n_hidden)
+        self.activ = activ
         if activ not in ['logistic', 'tanh', 'relu']:
             raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
         # Random arrays with diff shapes
