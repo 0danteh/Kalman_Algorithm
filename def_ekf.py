@@ -94,14 +94,14 @@ class EKF:
         K = P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T) + self.R))
         return K
     
-    def _ekf(self,u,y,h,l,step):
+    def _ekf(self, u, y, h, l, step):
         # Update the network
-        self.H=self.jacobian(u,l)
-        # Get the Kalman gain
-        K=self.kalman_gain(self.P,self.H,self.R)
-        # Update the weights and covariances
-        dW=step*K.dot(y-h)
-        self.update_weights_and_cov(K,dW)
+        self.H = self.jacobian(u,l)
+        # Kalman gain
+        K = self.kalman_gain(self.P, self.H, self.R)
+        # Update weight estimates and covariance
+        dW = step*K.dot(y-h)
+        self.update_weights_and_cov(K, dW)
 
     def train(self,n_epochs,U,Y,P=None,Q=None,R=None,step=1):
         U=np.float64(U)
