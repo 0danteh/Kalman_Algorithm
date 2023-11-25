@@ -33,3 +33,4 @@ def double_pendulum(t,y):
       omega2**2 * l2 * m2 * np.cos(theta1 - theta2))) /
      (l2 * (2 * m1 + m2 - m2 * np.cos(2 * theta1 - 2 * theta2)))
     ]
+    return dydt
