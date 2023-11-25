@@ -80,7 +80,7 @@ y_pred_array=np.array(y_pred_list)
 
 # Plot the True vs Predicted values 
 plt.figure(figsize=(10, 6))
-# Plot true values
+# Plot the True values
 plt.plot(t_sim, y_sim, label='True Values', linewidth=2)
 plt.plot(t_sim, y_pred_array, label='Predicted Values', linestyle='dashed', linewidth=2)
 plt.title('True vs Predicted Values')
