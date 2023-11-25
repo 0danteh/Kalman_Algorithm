@@ -90,6 +90,7 @@ class EKF:
         self.W=[random_weights((n_hidden,n_input+1)),random_weights((n_output,n_hidden+1))]
         self.num_weights=sum([np.size(w) for w in self.W])
         self.P=None
+        # Affine transformation function for calculating the output from weights and input
         self.affine_transform=lambda W,V: np.dot(np.atleast_1d(V), W[:, :-1].T) + W[:, -1]
 
     # Feeding the neural network.
