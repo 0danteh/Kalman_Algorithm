@@ -19,6 +19,9 @@ def _check_matrix(M,n,error_msg):
             raise ValueError(error_msg)
         return np.float64(M)
 
+#Validate the shapes of input matrices X and Y.
+#Ensure they have the correct number of data points, input variables, and output variables.
+
 def validate_shape(X,Y,n_input,n_output):
     if X.shape[0] != Y.shape[0]:
         raise ValueError("U and Y must have the same number of data points.")
