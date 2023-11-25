@@ -157,7 +157,7 @@ class EKF:
         U=np.float64(U)
         Y=np.float64(Y)
         U,Y=validate_shape(U,Y,self.n_input,self.n_output)
-        # Initialise EKF
+        # Initialise EKF & check for the covariance
         self.feed = self._ekf
         if P is None:
             if self.P is None:
