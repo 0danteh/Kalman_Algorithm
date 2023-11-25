@@ -15,4 +15,10 @@ def double_pendulum(t,y):
           are used for further distinction of the variables.
     """
 
+    m1 = 1.0 
+    m2 = 1.0
+    l1 = 1.0
+    l2 = 1.0
+    g = 9.8
+
     
