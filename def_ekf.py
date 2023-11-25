@@ -126,6 +126,9 @@ class EKF:
         """
         Parameters:
         - n_epochs: Number of training epochs.
+        - U: Input training data.
+        - Y: Output training data.
+
         """
 
         U=np.float64(U)
