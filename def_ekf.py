@@ -122,6 +122,12 @@ class EKF:
 
     # Train the neural network for a given number of epochs.
     def train(self, n_epochs, U, Y, P=None, Q=None, R=None, step=1):
+
+        """
+        Parameters:
+        - n_epochs: Number of training epochs.
+        """
+
         U=np.float64(U)
         Y=np.float64(Y)
         U,Y=validate_shape(U,Y,self.n_input,self.n_output)
