@@ -129,6 +129,7 @@ class EKF:
         - U: Input training data.
         - Y: Output training data.
         - P: Initial covariance matrix for the EKF algorithm.
+        - Q: Covariance matrix for the process noise in the EKF algorithm.
 
         """
 
