@@ -21,4 +21,5 @@ def double_pendulum(t,y):
     l2 = 1.0
     g = 9.8
 
+    theta1,omega1,theta2,omega2 = y
     
