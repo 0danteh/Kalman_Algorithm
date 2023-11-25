@@ -19,6 +19,7 @@ def _check_matrix(M,n,error_msg):
         # Return scaled identity matrix of size (n, n)
         return M*np.eye(n, dtype=np.float64)
     else:
+        # Check if the shape of M is (n, n)        
         if np.shape(M) != (n,n):
             raise ValueError(error_msg)
         return np.float64(M)
