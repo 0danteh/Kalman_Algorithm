@@ -105,7 +105,7 @@ class EKF:
         self.P=self.P-np.dot(K, self.H.dot(self.P))
         if self.Q_nonzero: self.P=self.P+self.Q
 
-    # Compute the kalman gain
+    # Compute the Kalman gain based on covariance, observation matrix, and measurement noise.
     def kalman_gain(self, P, H, R):
         K = P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T) + self.R))
         return K
