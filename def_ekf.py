@@ -120,7 +120,7 @@ class EKF:
         dW=step*K.dot(y-h)
         self.update_weights_and_cov(K, dW)
 
-    def train(self, n_epochs, U, Y, method='ekf', P=None, Q=None, R=None, step=1):
+    def train(self, n_epochs, U, Y, P=None, Q=None, R=None, step=1):
         U=np.float64(U)
         Y=np.float64(Y)
         U,Y=validate_shape(U,Y,self.n_input,self.n_output)
