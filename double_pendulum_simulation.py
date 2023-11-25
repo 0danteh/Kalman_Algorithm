@@ -76,3 +76,4 @@ for i in range(len(t_sim)):
     y_pred_list.append(y_pred.flatten())
 
 # Convert the list to a numpy array
+y_pred_array=np.array(y_pred_list)
