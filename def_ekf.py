@@ -3,7 +3,7 @@ import numpy.linalg as npl
 from tqdm import tqdm
 from scipy.linalg import block_diag
 
-#Ensure that the input matrix M is valid and has the correct shape. 
+# Ensure that the input matrix M is valid and has the correct shape. 
 # If M is None, create an identity matrix of size n.
 
 def _check_matrix(M,n,error_msg):
@@ -19,8 +19,8 @@ def _check_matrix(M,n,error_msg):
             raise ValueError(error_msg)
         return np.float64(M)
 
-#Validate the shapes of input matrices X and Y.
-#Ensure they have the correct number of data points, input variables, and output variables.
+# Validate the shapes of input matrices X and Y.
+# Ensure they have the correct number of data points, input variables, and output variables.
 
 def validate_shape(X,Y,n_input,n_output):
     if X.shape[0] != Y.shape[0]:
