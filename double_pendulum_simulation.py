@@ -65,3 +65,5 @@ ekf.train(n_epochs=1, U=y_sim_noise_scaled[::nth], Y=y_sim_noise_scaled[::nth], 
 
 # Data prediction list
 y_pred_list=[]
+
+# Perform the prediction
