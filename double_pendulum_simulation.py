@@ -61,3 +61,4 @@ y_sim_noise_scaled=scaler.fit_transform(y_sim_noise)
 # Training
 per=0.01 # Data sampling period
 nth=int(per/0.01) # How much to skip
+ekf.train(n_epochs=1, U=y_sim_noise_scaled[::nth], Y=y_sim_noise_scaled[::nth], P=0.5, R=0.1)
