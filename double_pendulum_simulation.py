@@ -79,3 +79,11 @@ for i in range(len(t_sim)):
 y_pred_array=np.array(y_pred_list)
 
 # Plot the True vs Predicted values 
+plt.figure(figsize=(10, 6))
+plt.plot(t_sim, y_sim, label='True Values', linewidth=2)
+plt.plot(t_sim, y_pred_array, label='Predicted Values', linestyle='dashed', linewidth=2)
+plt.title('True vs Predicted Values')
+plt.xlabel('Time')
+plt.ylabel('Angle/Velocity')
+plt.legend()
+plt.show()
