@@ -41,6 +41,8 @@ def outer_plus_bias(x, y, bias=1):
 # Develop the whole EKF Neural Network
 
 class EKF:
+
+    # Compute the sigmoid activation function based on the chosen activation type.
     def sig(self, V):
         if self.activ == 'logistic':
             return (1 + np.exp(-V))**-1
