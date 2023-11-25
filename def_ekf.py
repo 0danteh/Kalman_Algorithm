@@ -77,11 +77,11 @@ class EKF:
         self.n_output=int(n_output)
         self.n_hidden=int(n_hidden)
         self.activ=activ
-        
+
         # Check if activation function is valid
         if activ not in ['logistic', 'tanh', 'relu']:
             raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
-        # Random arrays with diff shapes
+        # Define a function for generating random weights with a specified shape
         def random_weights(shape):
             return weight_scale*(2*np.random.sample(shape)-1)
         # Inilialising weight matrix
