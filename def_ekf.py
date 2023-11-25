@@ -5,7 +5,6 @@ from scipy.linalg import block_diag
 
 # Ensure that the input matrix M is valid and has the correct shape. 
 # If M is None, create an identity matrix of size n.
-
 def _check_matrix(M,n,error_msg):
  # Check if matrix M is None
     if M is None:
