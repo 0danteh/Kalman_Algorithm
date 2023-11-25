@@ -7,6 +7,7 @@ from scipy.linalg import block_diag
 # If M is None, create an identity matrix of size n.
 
 def _check_matrix(M,n,error_msg):
+ # Check if matrix M is None
     if M is None:
         if hasattr('M', '__dict__') and M is not None:
             return M
