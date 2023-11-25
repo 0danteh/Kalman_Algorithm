@@ -110,6 +110,7 @@ class EKF:
         K = P.dot(H.T).dot(npl.inv(H.dot(self.P).dot(H.T) + self.R))
         return K
     
+    # Extended Kalman Filter for the neural network.
     def _ekf(self, u, y, h, l, step):
         # Update the network
         self.H=self.jacobian(u,l)
