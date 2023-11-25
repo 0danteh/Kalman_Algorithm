@@ -22,6 +22,7 @@ def _check_matrix(M,n,error_msg):
         # Check if the shape of M is (n, n)        
         if np.shape(M) != (n,n):
             raise ValueError(error_msg)
+        # Return M cast to np.float64
         return np.float64(M)
 
 # Validate the shapes of input matrices X and Y.
