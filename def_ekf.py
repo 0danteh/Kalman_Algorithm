@@ -72,6 +72,7 @@ class EKF:
     # Initialize the EKF neural network with given parameters. 
     def __init__(self,n_input,n_output,n_hidden,activ,weight_scale=5):
         
+        # Constructor: Initializes the neural network parameters and weights
         self.n_input=int(n_input)
         self.n_output=int(n_output)
         self.n_hidden=int(n_hidden)
