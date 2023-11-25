@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from def_ekf import EKF
 import matplotlib as plt
 
-# Define the double pendulum dynamics. 
+# Define the double pendulum dynamics 
 def double_pendulum(t,y):  
     """
     Parameters:
