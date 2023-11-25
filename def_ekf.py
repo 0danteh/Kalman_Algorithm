@@ -38,6 +38,8 @@ def validate_shape(X,Y,n_input,n_output):
 def outer_plus_bias(x, y, bias=1):
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
+# Develop the whole EKF Neural Network
+
 class EKF:
     def sig(self, V):
         if self.activ == 'logistic':
