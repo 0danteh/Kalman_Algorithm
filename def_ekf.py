@@ -97,8 +97,12 @@ class EKF:
     # Optionally, return the intermediate layer values if specified.
     def update(self,U,return_l=False):
         U=np.float64(U)
+        
+        # Reshape input if it's a 1D array with more than n_input elements
         if U.ndim == 1 and len(U) > self.n_input:
             U=U[:, np.newaxis]
+
+        # Calculate output and intermediate layer values
         l=self.sig(self.affine_transform(self.W[0], U))
         h=self.affine_transform(self.W[1], l)
         return (h, l) if return_l else h
