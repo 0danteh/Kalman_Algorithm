@@ -128,6 +128,7 @@ class EKF:
         - n_epochs: Number of training epochs.
         - U: Input training data.
         - Y: Output training data.
+        - P: Initial covariance matrix for the EKF algorithm.
 
         """
 
