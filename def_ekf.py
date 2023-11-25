@@ -90,7 +90,7 @@ class EKF:
         h=self.affine_transform(self.W[1], l)
         return (h, l) if return_l else h
     
-    # Calculate the jacobian for the EKF algorithm
+    # Calculate the Jacobian matrix for the EKF algorithm based on input u and intermediate layer values lv
     def jacobian(self, u, l):
         # Compute NN jacobian
         D=(self.W[1][:, :-1]*self.dsig(l)).flatten()
