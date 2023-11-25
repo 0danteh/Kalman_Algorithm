@@ -25,13 +25,13 @@ def double_pendulum(t,y):
     
     dydt = [
      omega1,
-     (-g * (2 * m1 + m2) * np.sin(theta1) - m2 * g * np.sin(theta1 - 2 * theta2) -
-      2 * np.sin(theta1 - theta2) * m2 * (omega2**2 * l2 + omega1**2 * l1 * np.cos(theta1 - theta2))) /
-     (l1 * (2 * m1 + m2 - m2 * np.cos(2 * theta1 - 2 * theta2))),
+     (-g*(2*m1+m2)*np.sin(theta1)-m2*g*np.sin(theta1-2*theta2) -
+      2*np.sin(theta1-theta2)*m2*(omega2**2*l2+omega1**2*l1*np.cos(theta1-theta2)))/
+     (l1*(2*m1+m2-m2*np.cos(2*theta1-2*theta2))),
      omega2,
-     (2 * np.sin(theta1 - theta2) * (omega1**2 * l1 * (m1 + m2) + g * (m1 + m2) * np.cos(theta1) +
-      omega2**2 * l2 * m2 * np.cos(theta1 - theta2))) /
-     (l2 * (2 * m1 + m2 - m2 * np.cos(2 * theta1 - 2 * theta2)))
+     (2*np.sin(theta1-theta2)*(omega1**2*l1*(m1+m2)+g*(m1+m2)*np.cos(theta1)+
+      omega2**2*l2*m2 * np.cos(theta1 - theta2))) /
+     (l2*(2*m1+m2-m2*np.cos(2*theta1-2*theta2)))
     ]
     return dydt
 
