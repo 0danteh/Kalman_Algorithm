@@ -34,3 +34,8 @@ def double_pendulum(t,y):
      (l2 * (2 * m1 + m2 - m2 * np.cos(2 * theta1 - 2 * theta2)))
     ]
     return dydt
+
+# --- Simulate the double pendulum ---
+
+# Simulate the time span
+t_span=(0,10)
