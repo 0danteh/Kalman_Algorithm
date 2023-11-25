@@ -5,3 +5,4 @@ from def_ekf import EKF
 import matplotlib as plt
 
 # Define the double pendulum dynamics. 
+def double_pendulum(t,y):
