@@ -60,6 +60,7 @@ class EKF:
         elif self.activ == 'relu':
                 return np.float64(sigV > 0)
 
+    # Initialize the EKF neural network with given parameters. 
     def __init__(self,n_input,n_output,n_hidden,activ,weight_scale=5):
         
         self.n_input=int(n_input)
