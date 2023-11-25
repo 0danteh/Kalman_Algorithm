@@ -42,3 +42,7 @@ t_span=(0,10)
 # Initial conditions 
 y0=[np.pi/4, 0, np.pi/2, 0]
 sol=solve_ivp(double_pendulum, t_span, y0, t_eval=np.arange(0,10,0.01))
+
+# Extract the simulated data
+t_sim=sol.t
+y_sim=sol.y.t
