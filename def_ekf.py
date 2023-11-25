@@ -120,6 +120,7 @@ class EKF:
         dW=step*K.dot(y-h)
         self.update_weights_and_cov(K, dW)
 
+    # Train the neural network for a given number of epochs.
     def train(self, n_epochs, U, Y, P=None, Q=None, R=None, step=1):
         U=np.float64(U)
         Y=np.float64(Y)
