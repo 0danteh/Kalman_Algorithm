@@ -77,3 +77,5 @@ for i in range(len(t_sim)):
 
 # Convert the list to a numpy array
 y_pred_array=np.array(y_pred_list)
+
+# Plot the True vs Predicted values 
