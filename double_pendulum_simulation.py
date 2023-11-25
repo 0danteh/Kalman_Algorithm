@@ -59,3 +59,5 @@ scaler=StandardScaler()
 y_sim_noise_scaled=scaler.fit_transform(y_sim_noise)
 
 # Parameters for training
+per=0.01 # Data sampling period
+nth=int(per/0.01)
