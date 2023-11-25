@@ -29,6 +29,7 @@ def _check_matrix(M,n,error_msg):
 # Ensure they have the correct number of data points, input variables, and output variables.
 
 def validate_shape(X,Y,n_input,n_output):
+    # Start the validation of the shapes of input matrices X and Y
     if X.shape[0] != Y.shape[0]:
         raise ValueError("U and Y must have the same number of data points.")
     if X.shape[-1] != n_input:
