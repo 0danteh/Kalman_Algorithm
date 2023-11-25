@@ -55,3 +55,5 @@ y_sim_noise = y_sim + 0.1 * np.random.randn(*y_sim.shape)
 ekf=EKF(n_input=4,n_output=4,n_hidden=20,activ='relu')
 
 # Standardise the data
+scaler=StandardScaler()
+y_sim_noise_scaled=scaler.fit_transform(y_sim_noise)
