@@ -97,7 +97,7 @@ class EKF:
         H=np.hstack((outer_plus_bias(D, u).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l, [1])), self.n_output).reshape(self.n_output, self.n_hidden+1))))
         return H
     
-    # Update weight estimates and covariance based on Kalman gain and weight changes.
+    # Update weight estimates and covariance.
     def update_weights_and_cov(self, K, dW):
         # Update weight estimates and covariance
         self.W[0]=self.W[0]+dW[:self.W[0].size].reshape(self.W[0].shape)
