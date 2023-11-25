@@ -131,6 +131,7 @@ class EKF:
         - P: Initial covariance matrix for the EKF algorithm.
         - Q: Covariance matrix for the process noise in the EKF algorithm.
         - R: Covariance matrix for the measurement noise in the EKF algorithm.
+        - step: Learning step size.
 
         """
 
