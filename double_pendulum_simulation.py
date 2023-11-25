@@ -48,3 +48,5 @@ t_sim=sol.t
 y_sim=sol.y.t
 
 # Adding noise
+np.random.seed(42)
+y_sim_noise = y_sim + 0.1 * np.random.randn(*y_sim.shape)
