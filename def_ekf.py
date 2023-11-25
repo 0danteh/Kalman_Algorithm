@@ -81,9 +81,11 @@ class EKF:
         # Check if activation function is valid
         if activ not in ['logistic', 'tanh', 'relu']:
             raise ValueError("The 'activ' argument must be 'logistic', 'tanh', or 'relu'.")
+        
         # Define a function for generating random weights with a specified shape
         def random_weights(shape):
             return weight_scale*(2*np.random.sample(shape)-1)
+        
         # Initialise weight matrix with random weights
         weight_scale=np.float64(weight_scale)
         # Create a list of two arrays with random weights
@@ -97,7 +99,7 @@ class EKF:
     # Optionally, return the intermediate layer values if specified.
     def update(self,U,return_l=False):
         U=np.float64(U)
-        
+
         # Reshape input if it's a 1D array with more than n_input elements
         if U.ndim == 1 and len(U) > self.n_input:
             U=U[:, np.newaxis]
