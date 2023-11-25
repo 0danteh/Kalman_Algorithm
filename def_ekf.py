@@ -44,6 +44,7 @@ def validate_shape(X,Y,n_input,n_output):
 # Compute the outer product of vectors x and y, concatenated with x multiplied by a bias.
 
 def outer_plus_bias(x, y, bias=1):
+        # Concatenate the outer product of vectors x and y with a column vector of x multiplied by a bias
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
 # Develop the whole EKF Neural Network
