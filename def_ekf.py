@@ -133,6 +133,7 @@ class EKF:
         - R: Covariance matrix for the measurement noise in the EKF algorithm.
         - step: Learning step size.
 
+        Note: This method uses the specified training method and updates the network weights accordingly.
         """
 
         U=np.float64(U)
