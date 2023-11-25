@@ -3,6 +3,9 @@ import numpy.linalg as npl
 from tqdm import tqdm
 from scipy.linalg import block_diag
 
+#Ensure that the input matrix M is valid and has the correct shape. 
+# If M is None, create an identity matrix of size n.
+
 def _check_matrix(M,n,error_msg):
     if M is None:
         if hasattr('M', '__dict__') and M is not None:
