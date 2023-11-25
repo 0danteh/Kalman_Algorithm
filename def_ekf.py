@@ -14,6 +14,7 @@ def _check_matrix(M,n,error_msg):
             return M
         else:
             pass
+    # Check if M is a scalar
     elif np.isscalar(M):
         return M*np.eye(n, dtype=np.float64)
     else:
