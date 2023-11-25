@@ -57,3 +57,5 @@ ekf=EKF(n_input=4,n_output=4,n_hidden=20,activ='relu')
 # Standardise the data
 scaler=StandardScaler()
 y_sim_noise_scaled=scaler.fit_transform(y_sim_noise)
+
+# Parameters for training
