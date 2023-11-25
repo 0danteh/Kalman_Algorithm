@@ -39,3 +39,5 @@ def double_pendulum(t,y):
 
 # Simulate the time span
 t_span=(0,10)
+# Initial conditions 
+y0=[np.pi/4, 0, np.pi/2, 0]
