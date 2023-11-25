@@ -84,7 +84,7 @@ class EKF:
         # Define a function for generating random weights with a specified shape
         def random_weights(shape):
             return weight_scale*(2*np.random.sample(shape)-1)
-        # Inilialising weight matrix
+        # Initialize weight matrix with random weights
         weight_scale=np.float64(weight_scale)
         # Create a list of two arrays with random weights
         self.W=[random_weights((n_hidden,n_input+1)),random_weights((n_output,n_hidden+1))]
