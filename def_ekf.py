@@ -16,6 +16,7 @@ def _check_matrix(M,n,error_msg):
             pass
     # Check if M is a scalar
     elif np.isscalar(M):
+        # Return scaled identity matrix of size (n, n)
         return M*np.eye(n, dtype=np.float64)
     else:
         if np.shape(M) != (n,n):
