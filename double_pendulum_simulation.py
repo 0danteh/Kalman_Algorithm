@@ -67,3 +67,6 @@ ekf.train(n_epochs=1, U=y_sim_noise_scaled[::nth], Y=y_sim_noise_scaled[::nth], 
 y_pred_list=[]
 
 # Perform the prediction
+for i in range(len(t_sim)):
+    # Predictions from the scaled input
+    y_pred_scaled=ekf.update(y_sim_noise_scaled[i])
