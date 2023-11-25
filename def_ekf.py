@@ -50,7 +50,8 @@ class EKF:
             return np.tanh(V)
         elif self.activ == 'relu':
             return np.clip(V, 0, np.inf)
-        
+    
+    # Compute the derivative of the sigmoid activation function.       
     def dsig(self, sigV):
         if self.activ == 'logistic':
             return sigV * (1 - sigV)
