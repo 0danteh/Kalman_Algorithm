@@ -73,3 +73,4 @@ for i in range(len(t_sim)):
     # Inverse transform of the predictions to the original scale
     y_pred=scaler.inverse_transform(y_pred_scaled.reshape(1,-1))
     # Append the values to the list
+    y_pred_list.append(y_pred.flatten())
