@@ -33,6 +33,8 @@ def validate_shape(X,Y,n_input,n_output):
         Y=Y.reshape(-1, 1)
     return X, Y
 
+# Compute the outer product of vectors x and y, concatenated with x multiplied by a bias.
+
 def outer_plus_bias(x, y, bias=1):
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
