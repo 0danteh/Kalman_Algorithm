@@ -36,6 +36,7 @@ def validate_shape(X,Y,n_input,n_output):
         raise ValueError(f"U must have {n_input} input variables.")
     if Y.shape[-1] != n_output:
         raise ValueError(f"Y must have {n_output} output variables.")
+    # Reshape Y if it's a 1D array with more than one element
     if Y.ndim == 1 and Y.size>n_output:
         Y=Y.reshape(-1, 1)
     return X, Y
