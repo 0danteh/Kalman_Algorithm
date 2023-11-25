@@ -5,7 +5,6 @@ from scipy.linalg import block_diag
 
 # Ensure that the input matrix M is valid and has the correct shape. 
 # If M is None, create an identity matrix of size n.
-
 def _check_matrix(M,n,error_msg):
  # Check if matrix M is None
     if M is None:
@@ -27,7 +26,6 @@ def _check_matrix(M,n,error_msg):
 
 # Validate the shapes of input matrices X and Y.
 # Ensure they have the correct number of data points, input variables, and output variables.
-
 def validate_shape(X,Y,n_input,n_output):
     # Start the validation of the shapes of input matrices X and Y
     if X.shape[0] != Y.shape[0]:
@@ -42,13 +40,11 @@ def validate_shape(X,Y,n_input,n_output):
     return X, Y
 
 # Compute the outer product of vectors x and y, concatenated with x multiplied by a bias.
-
 def outer_plus_bias(x, y, bias=1):
         # Concatenate the outer product of vectors x and y with a column vector of x multiplied by a bias
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
 # Develop the whole EKF Neural Network
-
 class EKF:
 
     # Compute the sigmoid activation function based on the chosen activation type.
