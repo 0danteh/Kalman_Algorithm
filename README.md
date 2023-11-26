@@ -6,9 +6,17 @@ This repo aims at the creation of a manual neural network, found at `def_ekf.py`
 
 The EKF is a recursvie algorithm, meaning that it call itself to solve a problem. It estimates the state of a nonlinear dynamical system from noisy measurements. The Extended Kálmán Filter is composed by two steps: prediction (done by the `predict` function) and update (done within the `_ekf` function). In the prediction step, the state and the state covariance are propagated using a nonlinear model. In the update step, the state and the state covariance are corrected using a measurement and a measurement model. The EKF requires the computation of the Jacobian matrices of the nonlinear models, which are linear approximations of the models around the current state. The Kálmán filter equations are derived from the Bayesian inference framework, which updates the posterios probability of the state given the measurements using the prior probability and the likelihood function.
 
-The prediction steps goes as follows: $$\hat{x}_{k \mid k-1}=f(\hat{x}\_{k-1 \mid k-1}, u_k)$$
+The prediction equations are two: 
 
-$$P_{k \mid k-1} = F_kP_{k-1 \mid k-1}F_k^T+Q_k$$ where $\hat{x}_{k \mid k-1}$ is the prediction state, $f$ is the nonlinear state transition function, $\hat{x}\_{k-1 \mid k-1}$ is the previous estimate, $u_k$ is the control input, $P\_{k \mid k-1}$ is the predicted state covariance, $F_k$ is the state transition Jacobian matrix, $P\_{k-1 \mid k-1}$ is the previous state covariance estimate, and $Q_k$ is the process noise covariance matrix.
+The predicted state estimate, which is the result of applying the nonlinear state transition function to the previous state estimate and the control input:
+
+$$\hat{x}_{k \mid k-1}=f(\hat{x}\_{k-1 \mid k-1}, u_k)$$
+
+The predicted state covariance estimate, which is the result of propagating the previous state covariance estimate through the state transition Jacobian matrix and adding the process noise covariance matrix:
+
+$$P_{k \mid k-1} = F_kP_{k-1 \mid k-1}F_k^T+Q_k$$ where $\hat{x}_{k \mid k-1}$ is the prediction state, $f$ is the nonlinear state transition function, $\hat{x}\_{k-1 \mid k-1}$ is the previous estimate, $u_k$ is the control input, $P\_{k \mid k-1}$ is the predicted state covariance, $F_k$ is the state transition Jacobian matrix, $P\_{k-1 \mid k-1}$ is the previous state covariance estimate, and $Q_k$ is the process noise covariance matrix. 
+
+These equations are derived from the Taylor series expansion of the nonlinear state transition function, which approximates it by a linear function plus higher-order terms. The state transition Jacobian matrix is the first-order partial derivative of the state transition function with respect to the state
 
 For what concerns the update step, instead, the equations go as follows:
 
