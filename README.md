@@ -20,4 +20,4 @@ $$K_k=P_{k \mid k-1}H_k^TS_k^{-1}$$
 
 $$\hat{x}_{k \mid k-1}+K_k \tilde{y}_k$$
 
-$$P_{k \mid k} = (l-K_kH_k)P_{k \mid k-1}$$
+$$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$
