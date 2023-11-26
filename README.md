@@ -8,5 +8,5 @@ The EKF is a recursvie algorithm, meaning that it call itself to solve a problem
 
 For the prediction step: 
 
-$$ \hat{x}_{k \mid k-1} = f(\hat{x}_{k-1 \mid k-1}, u_k) $$
+$$\hat{x}_{k \mid k-1} = f(\hat{x}_{k-1 \mid k-1}, u_k)$$
 
