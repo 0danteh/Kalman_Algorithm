@@ -16,7 +16,7 @@ The **predicted state covariance estimate**, which is the result of propagating 
 
 $$P_{k \mid k-1} = F_kP_{k-1 \mid k-1}F_k^T+Q_k$$ where $\hat{x}_{k \mid k-1}$ is the prediction state, $f$ is the nonlinear state transition function, $\hat{x}\_{k-1 \mid k-1}$ is the previous estimate, $u_k$ is the control input, $P\_{k \mid k-1}$ is the predicted state covariance, $F_k$ is the state transition Jacobian matrix, $P\_{k-1 \mid k-1}$ is the previous state covariance estimate, and $Q_k$ is the process noise covariance matrix. 
 
-These equations are derived from the **Taylor series expansion** of the nonlinear state transition function, which approximates it by a linear function plus higher-order terms. The state transition Jacobian matrix is the first-order partial derivative of the state transition function with respect to the state
+These equations are derived from the **Taylor series expansion** of the nonlinear state transition function, which approximates it by a linear function plus higher-order terms. The state transition Jacobian matrix is the first-order partial derivative of the state transition function with respect to the state.
 
 For what concerns the update step, instead, the equations go as follows:
 
@@ -39,3 +39,14 @@ $$\hat{x}_{k \mid k-1}+K_k \tilde{y}_k$$
 The **updated state covariance estimate**, which is the product of the identity matrix minus the product of the Kalman gain and the measurement model matrix, and the predicted state covariance:
 
 $$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$ where $\tilde{y}_k$​ is the measurement innovation, $z_k$​ is the measurement, $h$ is the nonlinear measurement function, $S_k$​ is the innovation covariance, $H_k$​ is the measurement Jacobian matrix, $R_k$​ is the measurement noise covariance matrix, $K_k$​ is the Kalman gain, $\hat{x}\_{k \mid k}$​ is the updated state estimate, and $\hat{P}\_{k \mid k}$​ is the updated state covariance estimate.
+
+As already alluded, a fundamental part of the EKF is done through the Jacobian matrices, which are linear approximations of the models around the current state. The Jacobian matrix of a function is a matrix that contains the partial derivatives of the function with respect to its variables. The neural network consists of two layers: a hidden layer and an output layer. The hidden layer computes a linear transformation of the input followed by a nonlinear activation function, while the output layer computes another linear transformation of the hidden layer output. The activation function can be either logistic, tanh, or relu, depending on the parameter; going as follows:
+
+Logistic: $\sigma(x) = \frac{1}{1+e^{-x}}
+Tanh: $\tanh{x} = \frac{e^x-e^{-x}{e^x+e^{-x}}
+Relu: $relu(x) = max(0,x)
+
+
+
+
+
