@@ -17,3 +17,7 @@ $$\tilde{y}_k=z_k-h(\hat{x}\_{k \mid k-1})$$
 $$S_k=H_kP_{k \mid k-1}H_k^T+R_k$$
 
 $$K_k=P_{k \mid k-1}H_k^TS_k^{-1}$$
+
+$$\hat{x}_{k \mid k-1}+K_k \tilde{y}_k$$
+
+$$P_{k \mid k} = (l-K_kH_k)P_{k \mid k-1}$$
