@@ -10,3 +10,10 @@ The prediction steps goes as follows: $$\hat{x}_{k \mid k-1}=f(\hat{x}\_{k-1 \mi
 
 $$P_{k \mid k-1} = F_kP_{k-1 \mid k-1}F_k^T+Q_k$$ where $\hat{x}_{k \mid k-1}$ is the prediction state, $f$ is the nonlinear state transition function, $\hat{x}\_{k-1 \mid k-1}$ is the previous estimate, $u_k$ is the control input, $P\_{k \mid k-1}$ is the predicted state covariance, $F_k$ is the state transition Jacobian matrix, $P\_{k-1 \mid k-1}$ is the previous state covariance estimate, and $Q_k$ is the process noise covariance matrix.
 
+For what concerns the update step, instead, it goes as follows:
+
+$$\tilde{y}_k=z_k-h(\hat{x}\_{k \mid k-1})$$
+
+$$S_k=H_kP_{k \mid k-1}H_k^T+R_k$$
+
+$$K_k=P_{k \mid k-1}H_k^TS_k^{-1}$$
