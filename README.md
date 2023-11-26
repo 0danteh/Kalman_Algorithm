@@ -38,4 +38,4 @@ $$\hat{x}_{k \mid k-1}+K_k \tilde{y}_k$$
 
 The **updated state covariance estimate**, which is the product of the identity matrix minus the product of the Kalman gain and the measurement model matrix, and the predicted state covariance:
 
-$$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$
+$$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$ where $\tilde{y}_k$​ is the measurement innovation, $z_k$​ is the measurement, $h$ is the nonlinear measurement function, $S_k$​ is the innovation covariance, $H_k$​ is the measurement Jacobian matrix, $R_k$​ is the measurement noise covariance matrix, $K_k$​ is the Kalman gain, $\hat{x}\_{k \mid k}$​ is the updated state estimate, and $\hat{P}\_{k \mid k}$​ is the updated state covariance estimate.
