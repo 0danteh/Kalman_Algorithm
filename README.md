@@ -43,7 +43,7 @@ $$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$ where $\tilde{y}_k$​ is the measur
 As already alluded, a fundamental part of the EKF is done through the Jacobian matrices, which are linear approximations of the models around the current state. The Jacobian matrix of a function is a matrix that contains the partial derivatives of the function with respect to its variables. The neural network consists of two layers: a hidden layer and an output layer. The hidden layer computes a linear transformation of the input followed by a nonlinear activation function, while the output layer computes another linear transformation of the hidden layer output. The activation function can be either logistic, tanh, or relu, depending on the parameter; going as follows:
 
 Logistic: $\sigma(x) = \frac{1}{1+e^{-x}}$
-Tanh: $\tanh{x} = \frac{e^x-e^{-x}{e^x+e^{-x}}$
+Tanh: $tanh{x} = \frac{e^x-e^{-x}{e^x+e^{-x}}$
 Relu: $relu(x) = max(0,x)$
 
 
