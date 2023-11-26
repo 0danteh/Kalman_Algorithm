@@ -93,7 +93,7 @@ class EKF:
 
     # Feeding the neural network.
     # Optionally, return the intermediate layer values if specified.
-    def update(self,U,return_l=False):
+    def predict(self,U,return_l=False):
         U=np.float64(U)
 
         # Reshape input if it's a 1D array with more than n_input elements
@@ -177,7 +177,7 @@ class EKF:
             pbar = tqdm(train_input_shuffled, desc=f"Epoch {epoch + 1}/{n_epochs}", unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
             # Update the neural networks and train
             for i, (u,y) in enumerate(zip(pbar, train_output_shuffled)):
-                h, l=self.update(u, return_l=True)
+                h, l=self.predict(u, return_l=True)
                 self.feed(u, y, h, l, step)
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
