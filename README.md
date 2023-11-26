@@ -12,12 +12,22 @@ $$P_{k \mid k-1} = F_kP_{k-1 \mid k-1}F_k^T+Q_k$$ where $\hat{x}_{k \mid k-1}$ i
 
 For what concerns the update step, instead, the equations go as follows:
 
+The measurement residual or innovation, which is the difference between the actual measurement and the predicted measurement based on the predicted state:
+
 $$\tilde{y}_k=z_k-h(\hat{x}\_{k \mid k-1})$$
+
+The innovation covariance, which is the sum of the predicted measurement covariance and the measurement noise covariance:
 
 $$S_k=H_kP_{k \mid k-1}H_k^T+R_k$$
 
+The Kalman gain, which is the product of the predicted state covariance, the measurement model matrix, and the inverse of the innovation covariance:
+
 $$K_k=P_{k \mid k-1}H_k^TS_k^{-1}$$
 
+The updated state estimate, which is the sum of the predicted state estimate and the product of the Kalman gain and the measurement residual:
+
 $$\hat{x}_{k \mid k-1}+K_k \tilde{y}_k$$
+
+The updated state covariance estimate, which is the product of the identity matrix minus the product of the Kalman gain and the measurement model matrix, and the predicted state covariance:
 
 $$P_{k \mid k} = (I-K_kH_k)P_{k \mid k-1}$$
