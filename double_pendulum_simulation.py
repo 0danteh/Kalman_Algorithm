@@ -69,7 +69,7 @@ y_pred_list=[]
 # Perform the prediction
 for i in range(len(t_sim)):
     # Predictions from the scaled input
-    y_pred_scaled=ekf.update(y_sim_noise_scaled[i])
+    y_pred_scaled=ekf.predict(y_sim_noise_scaled[i])
     # Inverse transform of the predictions to the original scale
     y_pred=scaler.inverse_transform(y_pred_scaled.reshape(1,-1))
     # Append the values to the list
