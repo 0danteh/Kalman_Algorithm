@@ -48,7 +48,7 @@ $$\text{Logistic: } \sigma(x) = \frac{1}{1+e^{-x}} \\
 
 The output of the neural network is given by:
 
-$$h(x,u) = W_1l(x,u)+b_1$$ 
+$$h(x,u) = W_1l(x,u)+b_1$$ Where $W_1$ and $b_1$ are the weights and biases of the output layer, and $l(x,u)$ is the output of the hidden layer
 
 
 
