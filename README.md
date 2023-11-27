@@ -52,13 +52,13 @@ $$h(x,u) = W_1l(x,u)+b_1$$ Where $W_1$ and $b_1$ are the weights and biases of t
 
 $$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of the hidden layer, and $\sigma$ is the activation function. The Jacobian matrix of $h$ with respect to $x$ is then given by:
 
-$$J_h(x,u) = 
+$J_h(x,u) = 
 \begin{bmatrix}
     \frac{\partial h_1}{\partial x_1}(x,u) & \frac{\partial h_1}{\partial x_2}(x,u) & \dots & \frac{\partial h_1}{\partial x_n}(x,u) \\
     \frac{\partial h_2}{\partial x_1}(x,u) & \frac{\partial h_2}{\partial x_2}(x,u) & \dots & \frac{\partial h_2}{\partial x_n}(x,u) \\
     \vdots  & \vdots  & \ddots & \vdots  \\
     \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u)
-\end{bmatrix}$$ where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
+\end{bmatrix}$ where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
 
 $$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$
 
