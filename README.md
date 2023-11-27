@@ -66,7 +66,7 @@ $$\frac{\partial l_i}{\partial x_j}(x,u)= \sigma'(W_{0,i,j}u+b_{0,i})W_{0,i,j}$$
 
 $$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}u+b_{0,i})W_{0,i,1}$$ The other elements of the Jacobian matrix can be computed in a similar way, by using the appropriate rows and columns of $W_1$​ and $W_0​$. The code for computing the Jacobian matrix is given by the function `jacobian` in the code.
 
-# Mathematical formulation for the Double Pendulum Simulation.
+# Mathematical formulation for the Double Pendulum.
 
 The double pendulum consists of two pendulums connected in series. The angles of the pendulums are denoted by $\theta_1$ and $\theta_2$, and their angular velocity are denoted by $\omega_1$ and $\omega_2$, respectively.
 
