@@ -64,7 +64,7 @@ $$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u
 
 $$\frac{\partial l_i}{\partial x_j}(x,u)= \sigma'(W_{0,i,j}u+b_{0,i})W_{0,i,j}$$ where $W_{0,i,j}$ and $b_{0,i}$ are the elements of the $i$-th row of $W_0$ and $b_0$, respectively. Therefore, the element in the first row and first column of $J_h​(x,u)$ is given by:
 
-$$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}u+b_{0,i})W_{0,i,1}$$
+$$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}u+b_{0,i})W_{0,i,1}$$ The other elements of the Jacobian matrix can be computed in a similar way, by using the appropriate rows and columns of $W_1$​ and $W_0​$. The code for computing the Jacobian matrix is given by the function `jacobian` in the code.
 
 
 
