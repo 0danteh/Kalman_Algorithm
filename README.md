@@ -82,6 +82,6 @@ Let $\mathbf{q} =[\theta_1, \theta_2]$ be the vector of angular positions, and l
 
 $$\frac{\partial q}{\partial t}= \mathbf{v}$$
 
-$$\frac{\partial \mathbf{v}}{\partial t}=M^{-1}(\mathbf{q})F(\mathbf{q}, \mathbf{v})
+$$\frac{\partial \mathbf{v}}{\partial t}=M^{-1}(\mathbf{q})F(\mathbf{q}, \mathbf{v})$$
 
 
