@@ -74,7 +74,7 @@ The equations of motion for a double pendulum are derived using Lagrangian mecha
 
 $$T_i= \frac{1}{2}m_i(\dot\theta_i)^2$$ where $i$ is the index of the pendulum bob. The potential energy of each pendulum bob, instead, is given by:
 
-$$U_i=m_igl_i(1- \cos{\theta_i})$$
+$$U_i=m_igl_i(1- \cos{\theta_i})$$ The Lagrangian for the double pendulum, then becomes: $$L=T_1+T_2-U_1-U_2$$ Therefore, the equations of motion are obtained by applying the Euler_Lagrange equation, such that: $$ \frac{d}{dt}(\frac{\partial L}{\partial \dot\theta_i}- \frac{\partial L}{\partial \theta_i}=0
 
 
 
