@@ -60,7 +60,7 @@ $$J_h(x,u) =
     \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u)
 \end{bmatrix}$$ where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
 
-$$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$ where $k$ is the size of the hidden layer output $l$. The partial derivatives of $hU1​$ with respect to $l_i$​ are simply the elements of the first row of $W_1$​, that is, $W_{1,1,i}$​. The partial derivatives of $l_i$​ with respect to $x_j​$ are given by:
+$$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$ where $k$ is the size of the hidden layer output $l$. The partial derivatives of $h_1​$ with respect to $l_i$​ are simply the elements of the first row of $W_1$​, that is, $W_{1,1,i}$​. The partial derivatives of $l_i$​ with respect to $x_j​$ are given by:
 
 
 
