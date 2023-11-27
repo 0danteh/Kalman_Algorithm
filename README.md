@@ -74,7 +74,9 @@ The equations of motion for a double pendulum are derived using Lagrangian mecha
 
 The kinetic energy of each pendulum bob is given by:
 
-$$T_i= \frac{1}{2}m_i(\dot\theta_i)^2$$
+$$T_i= \frac{1}{2}m_i(\dot\theta_i)^2$$ where $i$ is the index of the pendulum bob. The potential energy of each pendulum bob, instead, is given by:
+
+$$U_i=m_igl_i(1- \cos{\theta_i})$$
 
 
 
