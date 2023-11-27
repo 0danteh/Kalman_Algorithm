@@ -50,7 +50,7 @@ The output of the neural network is given by:
 
 $$h(x,u) = W_1l(x,u)+b_1$$ Where $W_1$ and $b_1$ are the weights and biases of the output layer, and $l(x,u)$ is the output of the hidden layer, which is given by:
 
-$$l(x,u)= \sigma(W_0u+b_0)$$ 
+$$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of the hidden layer, and $\sigma$ is the activation function.
 
 
 
