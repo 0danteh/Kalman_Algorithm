@@ -62,6 +62,8 @@ $$J_h(x,u) =
 
 $$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$ where $k$ is the size of the hidden layer output $l$. The partial derivatives of $h_1​$ with respect to $l_i$​ are simply the elements of the first row of $W_1$​, that is, $W_{1,1,i}$​. The partial derivatives of $l_i$​ with respect to $x_j​$ are given by:
 
+$$\frac{\partial l_i}{\partial x_j}(x,u)= \sigma'(W_{0,i,j}u+b_{0,i})W_{0,i,j}$$ where $W_{0,i,j}$ and $b_{0,i}$ are the elements of the $i$-th row of $W_0$ and $b_0$, respectively. Therefore, the element in the first row and first column of $J_h​(x,u)£ is given by:
+
 
 
 
