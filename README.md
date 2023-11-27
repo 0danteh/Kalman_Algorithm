@@ -68,7 +68,7 @@ $$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}
 
 # Mathematical formulation for the Double Pendulum.
 
-The double pendulum consists of two pendulums connected in series. The angles of the pendulums are denoted by $\theta_1$ and $\theta_2$, and their angular velocity are denoted by $\omega_1$ and $\omega_2$, respectively.
+The double pendulum consists of two pendulums connected in series. The angles of the pendulums are denoted by $\theta_1$ and $\theta_2$, and their angular velocity are denoted by $\omega_1$ and $\omega_2$, respectively. THe masses of the pendulum bobs are $m_1$ and $m_2$, and the lengths of the pendulum rodsd are $l_1$ and $l_2$. The gravitational acceleration is denoted by $g$.
 
 
 
