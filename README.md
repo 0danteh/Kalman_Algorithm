@@ -60,7 +60,7 @@ $$J_h(x,u) =
     \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u)
 \end{bmatrix}$$ where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
 
-$$\frac{\partial h_1(x,u)}{\partial x_1} = \frac{\partial h_2(x,u)}{\partial l} \frac{\partial l}{\partial x_1} + \frac{\partial h_3(x,u)}{\partial l_2} \frac{\partial l_2}{\partial x_1} + \ldots + \frac{\partial h_k(x,u)}{\partial l_k} \frac{\partial l_k}{\partial x_1}$$
+
 
 
 
