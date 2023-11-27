@@ -46,6 +46,11 @@ $$\text{Logistic: } \sigma(x) = \frac{1}{1+e^{-x}} \\
 \text{ Tanh: } tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}} \\
 \text{ Relu: } relu(x) = max(0,x)$$
 
+The output of the neural network is given by:
+
+$$h(x,u) = W_1l(x,u)+b_1$$ 
+
+
 
 
 
