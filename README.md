@@ -70,9 +70,7 @@ $$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}
 
 The double pendulum consists of two pendulums connected in series. The angles of the pendulums are denoted by $\theta_1$ and $\theta_2$, and their angular velocity are denoted by $\omega_1$ and $\omega_2$, respectively. THe masses of the pendulum bobs are $m_1$ and $m_2$, and the lengths of the pendulum rodsd are $l_1$ and $l_2$. The gravitational acceleration is denoted by $g$.
 
-The equations of motion for a double pendulum are derived using Lagrangian mechanics. The Langragian ($L$) is calculated as: $$L=T-U$$ where $T$ is the kinetic energy, while $U$ is the potential energy.
-
-The kinetic energy of each pendulum bob is given by:
+The equations of motion for a double pendulum are derived using Lagrangian mechanics. The Langragian ($L$) is calculated as: $$L=T-U$$ where $T$ is the kinetic energy, while $U$ is the potential energy. For that, the kinetic energy of each pendulum bob is given by:
 
 $$T_i= \frac{1}{2}m_i(\dot\theta_i)^2$$ where $i$ is the index of the pendulum bob. The potential energy of each pendulum bob, instead, is given by:
 
