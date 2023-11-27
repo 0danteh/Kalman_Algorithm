@@ -54,10 +54,10 @@ $$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of
 
 $$J_h(x,u) = 
 \begin{bmatrix}
-    \frac{\partial h_1}{\partial x_1}(x,u) & \frac{\partial h_1}{\partial x_2}(x,u) & \dots & \frac{\partial h_1}{\partial x_n}(x,u) \\
-    \frac{\partial h_2}{\partial x_1}(x,u) & \frac{\partial h_2}{\partial x_2}(x,u) & \dots & \frac{\partial h_2}{\partial x_n}(x,u) \\
+    \frac{\partial h_1(x,u)}{\partial x_1} & \frac{\partial h_1(x,u)}{\partial x_2} & \dots & \frac{\partial h_1(x,u)}{\partial x_n} \\
+    \frac{\partial h_2(x,u)}{\partial x_1} & \frac{\partial h_2(x,u)}{\partial x_2} & \dots & \frac{\partial h_2(x,u)}{\partial x_n} \\
     \vdots  & \vdots  & \ddots & \vdots  \\
-    \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u)
+    \frac{\partial h_m(x,u)}{\partial x_1} & \frac{\partial h_m(x,u)}{\partial x_2} & \dots & \frac{\partial h_m(x,u)}{\partial x_n}
 \end{bmatrix}$$ where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
 
 $$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$
