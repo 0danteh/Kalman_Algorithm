@@ -50,7 +50,15 @@ The output of the neural network is given by:
 
 $$h(x,u) = W_1l(x,u)+b_1$$ Where $W_1$ and $b_1$ are the weights and biases of the output layer, and $l(x,u)$ is the output of the hidden layer, which is given by:
 
-$$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of the hidden layer, and $\sigma$ is the activation function.
+$$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of the hidden layer, and $\sigma$ is the activation function. The Jacobian matrix of $h$ with respect to $x$ is then given by:
+
+$$J_h(x,u) = 
+\begin{bmatrix}
+    \frac{\partial h_1(x,u)}{\partial x_1} & \frac{\partial h_1(x,u)}{\partial x_2} & \dots & \frac{\partial h_1(x,u)}{\partial x_n} \\
+    \frac{\partial h_2(x,u)}{\partial x_1} & \frac{\partial h_2(x,u)}{\partial x_2} & \dots & \frac{\partial h_2(x,u)}{\partial x_n} \\
+    \vdots  & \vdots  & \ddots & \vdots  \\
+    \frac{\partial h_m(x,u)}{\partial x_1} & \frac{\partial h_m(x,u)}{\partial x_2} & \dots & \frac{\partial h_m(x,u)}{\partial x_n}
+\end{bmatrix}$$
 
 
 
