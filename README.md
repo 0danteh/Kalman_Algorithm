@@ -68,6 +68,8 @@ $$\frac{\partial h_1}{\partial x_1}(x,u)=\sum_{i=1}^kW_{1,1,i} \sigma'(W_{0,i,1}
 
 # Mathematical formulation for the Double Pendulum Simulation.
 
+The double pendulum consists of two pendulums connected in series. The angles of the pendulums are denoted by $\theta_1$ and $\theta_2$, and their angular velocity are denoted by $\omega_1$ and $\omega_2$, respectively.
+
 
 
 
