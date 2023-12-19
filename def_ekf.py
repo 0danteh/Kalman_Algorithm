@@ -174,7 +174,8 @@ class EKF:
             train_input_shuffled=U[shuffl]
             train_output_shuffled=Y[shuffl]
             # Display a progress bar for the training epochs
-            pbar = tqdm(train_input_shuffled, desc=f"Epoch {epoch + 1}/{n_epochs}", unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
+            pbar = tqdm(train_input_shuffled, desc=f"Epoch {epoch + 1}/{n_epochs}", 
+                        unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
             # Update the neural networks and train
             for i, (u,y) in enumerate(zip(pbar, train_output_shuffled)):
                 h, l=self.predict(u, return_l=True)
