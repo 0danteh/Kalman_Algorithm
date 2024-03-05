@@ -54,7 +54,10 @@ $$l(x,u)= \sigma(W_0u+b_0)$$ where $W_0$ and $b_0$ are the weights and biases of
 
 $$
 J_h(x,u) = \begin{bmatrix}
-    \frac{\partial h_1}{\partial x_1}(x,u) & \frac{\partial h_1}{\partial x_2}(x,u) & \dots & \frac{\partial h_1}{\partial x_n}(x,u) \ \frac{\partial h_2}{\partial x_1}(x,u) & \frac{\partial h_2}{\partial x_2}(x,u) & \dots & \frac{\partial h_2}{\partial x_n}(x,u) \     \vdots &     \vdots & \ddots & \vdots \ \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u) 
+    \frac{\partial h_1}{\partial x_1}(x,u) & \frac{\partial h_1}{\partial x_2}(x,u) & \dots & \frac{\partial h_1}{\partial x_n}(x,u) \\
+    \frac{\partial h_2}{\partial x_1}(x,u) & \frac{\partial h_2}{\partial x_2}(x,u) & \dots & \frac{\partial h_2}{\partial x_n}(x,u) \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\partial h_m}{\partial x_1}(x,u) & \frac{\partial h_m}{\partial x_2}(x,u) & \dots & \frac{\partial h_m}{\partial x_n}(x,u)
 \end{bmatrix}
 $$
  
