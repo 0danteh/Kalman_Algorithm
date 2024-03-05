@@ -58,7 +58,7 @@ J_h(x,u) = \begin{bmatrix}
 \end{bmatrix}
 $$
  
- (https://quicklatex.com/cache3/9e/ql_085b31014ab30a2a69602de5e2205d9e_l3.png) where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
+Where $n$ is the size of the state vector $x$, and m is the size of the output vector $h$. To compute the elements of this matrix, we need to use the chain rule of differentiation. For example, the element in the first row and first column is given by: 
 
 $$\frac{\partial h_1}{\partial x_1}(x,u) = \frac{\partial h_1}{\partial l_1}(x,u) \frac{\partial l_1}{\partial x_1}(x,u) + \frac{\partial h_1}{\partial l_2}(x,u) \frac{\partial l_2}{\partial x_1}(x,u)+ \dots + \frac{\partial h_1}{\partial l_k}(x,u) \frac{\partial l_k}{\partial x_1}(x,u)$$ where $k$ is the size of the hidden layer output $l$. The partial derivatives of $h_1​$ with respect to $l_i$​ are simply the elements of the first row of $W_1$​, that is, $W_{1,1,i}$​. The partial derivatives of $l_i$​ with respect to $x_j​$ are given by:
 
@@ -82,7 +82,7 @@ Let $\mathbf{q} =[\theta_1, \theta_2]$ be the vector of angular positions, and l
 
 $$\frac{\partial q}{\partial t}= \mathbf{v}$$
 
-$$\frac{\partial \mathbf{v}}{\partial t}=M^{-1}(\mathbf{q})F(\mathbf{q}, \mathbf{v})$$ where $M(\mathbf{q})$ is the mass matrix and $F(\mathbf{q}, \mathbf{v})$ is the force vector. These are given by: https://quicklatex.com/cache3/62/ql_f5f701c67413a789f7b3e4b15d0b5162_l3.png and https://quicklatex.com/cache3/b9/ql_bf4ec79ba2e29866e9d3ed87f5d1e9b9_l3.png respectively.
+$$\frac{\partial \mathbf{v}}{\partial t}=M^{-1}(\mathbf{q})F(\mathbf{q}, \mathbf{v})$$ where $M(\mathbf{q})$ is the mass matrix and $F(\mathbf{q}, \mathbf{v})$ is the force vector.
 
 
 
