@@ -6,47 +6,37 @@ from scipy.linalg import block_diag
 # Ensure that the input matrix M is valid and has the correct shape. 
 # If M is None, create an identity matrix of size n.
 def _check_matrix(M,n,error_msg):
- # Check if matrix M is None
     if M is None:
-        # Check if M has __dict__ attribute and is not None
         if hasattr('M', '__dict__') and M is not None:
             return M
         else:
             pass
-    # Check if M is a scalar
     elif np.isscalar(M):
-        # Return scaled identity matrix of size (n, n)
         return M*np.eye(n, dtype=np.float64)
     else:
-        # Check if the shape of M is (n, n)        
         if np.shape(M) != (n,n):
             raise ValueError(error_msg)
-        # Return M cast to np.float64
         return np.float64(M)
 
 # Validate the shapes of input matrices X and Y.
 # Ensure they have the correct number of data points, input variables, and output variables.
 def validate_shape(X,Y,n_input,n_output):
-    # Start the validation of the shapes of input matrices X and Y
     if X.shape[0] != Y.shape[0]:
         raise ValueError("U and Y must have the same number of data points.")
     if X.shape[-1] != n_input:
         raise ValueError(f"U must have {n_input} input variables.")
     if Y.shape[-1] != n_output:
         raise ValueError(f"Y must have {n_output} output variables.")
-    # Reshape Y if it's a 1D array with more than one element
     if Y.ndim == 1 and Y.size>n_output:
         Y=Y.reshape(-1, 1)
     return X, Y
 
 # Compute the outer product of vectors x and y, concatenated with x multiplied by a bias.
 def outer_plus_bias(x, y, bias=1):
-        # Concatenate the outer product of vectors x and y with a column vector of x multiplied by a bias
         return np.hstack((np.outer(x, y), x[:, np.newaxis] * bias))
 
-# Develop the whole EKF Neural Network
 class EKF:
-
+ 
     # Compute the sigmoid activation function based on the chosen activation type.
     def sig(self, V):
         if self.activ == 'logistic':
@@ -96,7 +86,6 @@ class EKF:
     def predict(self,U,return_l=False):
         U=np.float64(U)
 
-        # Reshape input if it's a 1D array with more than n_input elements
         if U.ndim == 1 and len(U) > self.n_input:
             U=U[:, np.newaxis]
 
@@ -107,7 +96,6 @@ class EKF:
     
     # Calculate the Jacobian matrix for the EKF algorithm based on input u and intermediate layer values lv
     def jacobian(self, u, l):
-        # Compute NN jacobian
         D=(self.W[1][:, :-1]*self.dsig(l)).flatten()
         H=np.hstack((outer_plus_bias(D, u).reshape(self.n_output, self.W[0].size), block_diag(*np.tile(np.concatenate((l, [1])), self.n_output).reshape(self.n_output, self.n_hidden+1))))
         return H
@@ -126,15 +114,12 @@ class EKF:
     
     # Extended Kalman Filter for the neural network.
     def _ekf(self, u, y, h, l, step):
-        # Update the network
         self.H=self.jacobian(u,l)
-        # Kalman gain
         K=self.kalman_gain(self.P, self.H, self.R)
         # Update weight estimates and covariance
         dW=step*K.dot(y-h)
         self.update_weights_and_cov(K, dW)
 
-    # Train the neural network for a given number of epochs.
     def train(self, n_epochs, U, Y, P=None, Q=None, R=None, step=1):
 
         """
@@ -168,49 +153,12 @@ class EKF:
         if npl.matrix_rank(self.R) != len(self.R):
             raise ValueError("R must be positive definite.")
 
-        # Start the training
         for epoch in range(n_epochs):
             shuffl=np.random.permutation(len(U))
             train_input_shuffled=U[shuffl]
             train_output_shuffled=Y[shuffl]
-            # Display a progress bar for the training epochs
             pbar = tqdm(train_input_shuffled, desc=f"Epoch {epoch + 1}/{n_epochs}", 
                         unit="batch", bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]")
-            # Update the neural networks and train
             for i, (u,y) in enumerate(zip(pbar, train_output_shuffled)):
                 h, l=self.predict(u, return_l=True)
                 self.feed(u, y, h, l, step)
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@%=-----:#**+++##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%##*+****:------*@@@
-#@@@@@@@@@@*....:.--.:.-:.++=*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*+=+.:-.:.--.:....:%@@@@@
-#@@@@@@@@@@@@@@=+-:...+=-:::::....-##=*@@@@@@@@@@@@@@@@@@@@@@@@@@@@*=%#-.....:-::--+....-++*@@@@@@@@@
-#@@@@@@@@@@@@@#+##%##*@%#===-..:::::.-.-:*@@@@@@@@@@@@@@@@@@@@@@*--.-.::::...-==+#%%###%###*%@@@@@@@@
-#@@@@@@@@@@@@@%:..:..::.-=+*##@@@+=-.-::.::%@@@@@@@@@@@@@@@@@@%:-.::::-=+@@@##**--.::..:.:.+@@@@@@@@@
-#@@@@@@@@@@@@@@@*--:.----:.:::.:=++-:...=.-@@@@@%=:::--%@@@@@@%-.=...:-++=:...:.:-:::.:--=@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@%@#+*=-=**+=+--..-+@@@@*:=-:#=..:%@@@@@@@=-..:=+++#*--=*+#@%@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@%=----=-==++::=++-==:.-.+@@@@@@%%-.....=@@@@@@@+.-.:-===+=.-+++-:=----=#@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@%+=:.::.:..:.-:-%+...::=@@@@@@@@*-.:..+@@@@@@@=::..:+%-::...-..::.:=+%@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@#%@%%%%@%%###%:.-:::*@@@@#=:-:...=@@@@@*:::-..%###%@@%%%@@%#@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@*--:::-:...:#@@-=-=.-=:*@*:-:.==.:=:+@#:=-.=-=-@@#:..:::.::=-*@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@=:::::.-@@@*++*##*:-::-::=.::::.:.=.---.:-+##*++*@@%-.:::::-@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@###=**-:::++*###%=-==.+---=-=:-*.==-=%###*+=:::-**+##*@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@-.:..::.=%##--.-=*#**===:.--.:-+-**#*--:--##%-.::..:.-@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@%%@#-=%@*+..:-%-=-*@#:+:..--..:#:*@*-=-#-:..+#@#=-%@%#@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-::=+%%#-=++-*@%=.=--=:=%%+-*+--#%%+=::-@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=#%%@+:-.-*::*@@@-+--+-@@@*:-*-.-:=@%%#-@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@==:-+%+-*%*+*#+**=%*+*%*=+%+-:==@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%@@@@+-::**+:.=*+:::+@@@@%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*-::-%@*==*@%--:-*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@..-.*@#--:.*@#:::-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@:-++@@:-+==-@@*+-:@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*=@#=@@+--@@@@+-=----+@@@@-=+@@+*@%=%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*##-+-==*@@@@@+=%=*#-%++@@@@@#==:===%+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+=:+=@@%@%%+.-=+#--*+=-.=@%@%@@=+--=*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*#%+%*@@@@*::-=#-:==:=#--::+@@@@*#*+#+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%-@+-@@@@@#*-=-:=+-::-=:*#%@@@@-+@-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#:+#=:=+#-:-%=-#%@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#=++#=:=+=--=%=+=*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##@+#*====-=*%+@%*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*+%@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
